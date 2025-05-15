@@ -21,19 +21,9 @@ export default function FontFamilyPage() {
 
   const fonts = [
     {
-      id: 'inter',
-      value: `'Inter', sans-serif`,
-      label: 'Inter'
-    },
-    {
       id: 'poppins',
       value: `'Poppins', sans-serif`,
       label: 'Poppins'
-    },
-    {
-      id: 'roboto',
-      value: `'Roboto', sans-serif`,
-      label: 'Roboto'
     }
   ];
 

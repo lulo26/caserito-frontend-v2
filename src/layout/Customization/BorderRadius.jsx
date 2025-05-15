@@ -30,8 +30,8 @@ export default function BorderRadius() {
             getAriaValueText={valueText}
             valueLabelDisplay="on"
             aria-labelledby="discrete-slider-small-steps"
-            min={4}
-            max={24}
+            min={10}
+            max={10}
             color="primary"
             sx={{
               '& .MuiSlider-valueLabel': {

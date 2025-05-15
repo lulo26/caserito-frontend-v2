@@ -26,7 +26,7 @@ export default function AppGet() {
             });
     }, []);
 
-    if (loading) return <Loader/>;
+    if (loading) return (<><Loader/> <Loading/></>);
     if (error) return <div>Error: {error}</div>;
 
     return (
