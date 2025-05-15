@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -13,6 +12,7 @@ import Box from '@mui/material/Box';
 
 // project imports
 import AnimateButton from 'ui-component/extended/AnimateButton';
+import BackToHome from '../authentication/BackToHome';
 
 // assets
 import Visibility from '@mui/icons-material/Visibility';
@@ -34,6 +34,7 @@ export default function AuthLogin() {
 
   return (
     <>
+    <BackToHome/>
       <FormControl fullWidth sx={{ ...theme.typography.customInput }}>
         <InputLabel htmlFor="outlined-adornment-email-login">Correo</InputLabel>
         <OutlinedInput id="outlined-adornment-email-login" type="email" name="email"/>

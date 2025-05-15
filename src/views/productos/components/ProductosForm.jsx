@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import {TextField} from '@mui/material';
 
-export default function ProductosForm() {
+export default function ProductosForm(nombre, descripcion, stock, precio, imagen) {
   return (
     <>
         <Box
@@ -14,6 +14,7 @@ export default function ProductosForm() {
               id="nombre"
               label="Nombre"
               type="text"
+              value={nombre}
               sx={{mb:3, mr:3, width:'100%'}}
             />
           </div>
@@ -24,6 +25,7 @@ export default function ProductosForm() {
               type="text"
               sx={{mb:3, mr:3, width:'100%'}}
               multiline
+              value={descripcion}
               maxRows={3}
             />
           </div>
@@ -40,11 +42,13 @@ export default function ProductosForm() {
               id="stock"
               label="Cantidad"
               type="number"
+              value={stock}
             />
             <TextField
               id="precio"
               label="Precio"
               type="number"
+              value={precio}
             />
             </Box>
           </div>
@@ -55,6 +59,7 @@ export default function ProductosForm() {
               label="Imagen"
               type="file"
               autoComplete="current-password"
+              value={imagen}
               sx={{mb:3, mr:3, width:'100%'}}
               slotProps={{
                 input:{

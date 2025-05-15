@@ -5,9 +5,10 @@ import Loading from "../components/Loading";
 import Loader from "../../../ui-component/Loader";
 import { Grid2 } from "@mui/material";
 import {Box} from "@mui/material";
+import { baseURL } from "../../../store/constant";
 
 export default function AppGet() {
-    const apiLink = 'http://127.0.0.1:8000/api/producto'
+    const productoURL = baseURL + 'producto'
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -15,7 +16,7 @@ export default function AppGet() {
     useEffect(() => {
         // Make GET request to fetch data
         axios
-            .get(apiLink)
+            .get(productoURL)
             .then((response) => {
                 setData(response.data);
                 setLoading(false);
@@ -33,7 +34,7 @@ export default function AppGet() {
     <Box sx={{ flexGrow: 1 }}>
         <Grid2 container spacing={2}>
                 {data.data.map((post) => (
-                    <Grid2>
+                    <Grid2 key={post.id}>
                         <ProductosCard key={post.id}
                             nombre={post.nombre}
                             descripcion={post.descripcion}

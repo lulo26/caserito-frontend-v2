@@ -3,8 +3,11 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import MuiTypography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import AppPost from '../api/AppPost';
 
-import ProductosForm from './ProductosForm';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import { Stack } from '@mui/material';
 
 const style = {
   position: 'absolute',
@@ -34,12 +37,27 @@ export default function ProductosModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <MuiTypography sx={{mb: 3}} variant="h4" component="h2">
-            Agregar un nuevo producto
-          </MuiTypography>
-          <ProductosForm/>
-          <Button variant='contained' sx={{borderRadius: '8px'}}>Agregar</Button>
-          <Button onClick={handleClose} variant='contained' sx={{bgcolor: 'secondary.main', ml:3, borderRadius: '8px'}}>Cerrar</Button>
+          <Stack
+            direction="row"
+            spacing={2}
+            sx={{
+              mb: 3,
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <MuiTypography variant="h4" component="h2">
+                Agregar un nuevo producto
+              </MuiTypography>
+
+              <IconButton aria-label="Close" onClick={handleClose}>
+                <CloseIcon />
+              </IconButton>
+          </Stack>
+
+
+              
+          <AppPost/>
         </Box>
       </Modal>
     </div>
