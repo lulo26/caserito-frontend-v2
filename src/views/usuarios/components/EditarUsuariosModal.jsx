@@ -1,43 +1,44 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import MuiTypography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import UsuariosForm from './UsuariosForm';
 
 const style = {
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: 500,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
+  border: '0',
   boxShadow: 24,
   p: 4,
+  borderRadius: '10px',
 };
 
-export default function ModalEditar() {
+export default function EditarProductosModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
     <div>
-    <Button onClick={handleOpen} size='small' variant='contained' color='secondary'>Editar</Button>
+    <Button onClick={handleOpen} variant='contained' size='small' sx={{borderRadius: '8px'}}>Editar producto</Button>
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          <MuiTypography sx={{mb: 3}} variant="h4" component="h2">
+            Editar producto
+          </MuiTypography>
+          <UsuariosForm/>
+          <Button variant='contained' sx={{borderRadius: '8px'}}>Agregar</Button>
+          <Button onClick={handleClose} variant='contained' sx={{bgcolor: 'secondary.main', ml:3, borderRadius: '8px'}}>Cerrar</Button>
         </Box>
       </Modal>
     </div>
