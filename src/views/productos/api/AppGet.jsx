@@ -3,8 +3,7 @@ import axios from "axios";
 import ProductosCard from "../components/ProductosCard";
 import Loading from "../components/Loading";
 import Loader from "../../../ui-component/Loader";
-import { Grid2 } from "@mui/material";
-import {Box} from "@mui/material";
+import { Grid2, Box } from "@mui/material";
 
 export default function AppGet() {
     const apiLink = 'http://127.0.0.1:8000/api/producto'
@@ -26,7 +25,7 @@ export default function AppGet() {
             });
     }, []);
 
-    if (loading) return <Loader/>;
+    if (loading) return <Loading/>;
     if (error) return <div>Error: {error}</div>;
 
     return (
