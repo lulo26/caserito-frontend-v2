@@ -37,7 +37,7 @@ export default function AppPost(IDproducto) {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [producto, setProducto] = useState([])
+    
 
     // Post request
     const IDstring = IDproducto.IDproducto
@@ -47,7 +47,9 @@ export default function AppPost(IDproducto) {
     const [precio, setPrecio] = useState("");
     const [imagen, setImagen] = useState("");
     const [responseMessage, setResponseMessage] = useState("");
-    const [data, setData] = useState([])
+
+    const [response, setResponse] = useState([])
+    const [producto, setProducto] = useState([])
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -69,18 +71,11 @@ export default function AppPost(IDproducto) {
             .catch((err) => {
                 setResponseMessage(<Alert severity="error">Hubo un error al editar el producto.</Alert>);
             });
-            console.log(response);
-            
     };
 
-    const getOneProducto =(e) =>{
-        axios.get(`${baseURL}producto/${IDstring}`)
-        .then((response) =>{
-            setData(response.data)
-        })
-        .catch((err)=>{
-            setResponseMessage(err.message)
-        })
+    const getOneProducto = async()=>{
+        let {data} = await axios.get(`${baseURL}producto/${IDstring}`)
+        setResponse(data.data)
     }   
    
     useEffect(()=>{
@@ -88,8 +83,10 @@ export default function AppPost(IDproducto) {
     }, [producto])
 
     const getProductos = ()=>{
+      console.log(getOneProducto());
+      
         const response = getOneProducto()
-        response.then((response) =>{
+        response.then((res) =>{
             setProducto(res.data.data)
         })
     }
