@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { Form } from "react-router";
 
@@ -15,8 +15,9 @@ import MuiTypography from '@mui/material/Typography'
 
 import CloseIcon from '@mui/icons-material/Close';
 
-import ProductosForm from "../components/ProductosForm";
+import EditForm from "../components/EditForm";
 import { baseURL } from "../../../store/constant";
+import { RestorePageOutlined } from "@mui/icons-material";
 
 const style = {
   position: 'absolute',
@@ -31,26 +32,28 @@ const style = {
   borderRadius: '10px',
 };
 
-export default function AppPost() {
+export default function AppPost(IDproducto) {
     // modal
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [producto, setProducto] = useState([])
 
     // Post request
-    const productoURL = baseURL + 'producto'
+    const IDstring = IDproducto.IDproducto
     const [nombre, setNombre] = useState("");
     const [descripcion, setDescripcion] = useState("");
     const [stock, setStock] = useState("");
     const [precio, setPrecio] = useState("");
     const [imagen, setImagen] = useState("");
     const [responseMessage, setResponseMessage] = useState("");
+    const [data, setData] = useState([])
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        let field = event.target
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        let field = e.target
 
-        const newProduct = {
+        const editedProduct = {
             nombre: field.nombre.value,
             descripcion: field.descripcion.value,
             stock: field.stock.value,
@@ -59,18 +62,42 @@ export default function AppPost() {
         };
 
         // Make POST request to send data
-        axios.post(productoURL, newProduct)
+        axios.put(`${baseURL}producto/${IDstring}`, editedProduct)
             .then((response) => {
-                setResponseMessage(<Alert severity="success">Producto Agregado.</Alert>);
+                setResponseMessage(<Alert severity="success">Producto Editado.</Alert>);
             })
             .catch((err) => {
-                setResponseMessage(<Alert severity="error">Hubo un error al agregar el producto.</Alert>);
+                setResponseMessage(<Alert severity="error">Hubo un error al editar el producto.</Alert>);
             });
+            console.log(response);
+            
     };
+
+    const getOneProducto =(e) =>{
+        axios.get(`${baseURL}producto/${IDstring}`)
+        .then((response) =>{
+            setData(response.data)
+        })
+        .catch((err)=>{
+            setResponseMessage(err.message)
+        })
+    }   
+   
+    useEffect(()=>{
+         getProductos()
+    }, [producto])
+
+    const getProductos = ()=>{
+        const response = getOneProducto()
+        response.then((response) =>{
+            setProducto(res.data.data)
+        })
+    }
+    
 
     return (   
     <div>
-    <Button onClick={handleOpen} variant='contained' sx={{borderRadius: '8px'}}>Crear nuevo</Button>
+    <Button onClick={handleOpen} variant='contained' size='small' sx={{borderRadius: '8px'}}>Editar</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -88,7 +115,7 @@ export default function AppPost() {
             }}
           >
             <MuiTypography variant="h4" component="h2">
-                Agregar un nuevo producto
+                Editar producto
               </MuiTypography>
 
               <IconButton aria-label="Close" onClick={handleClose}>
@@ -96,7 +123,13 @@ export default function AppPost() {
               </IconButton>
           </Stack>              
             <Form noValidate autoComplete='off' onSubmit={(e) => handleSubmit(e)}>
-               <ProductosForm/>
+               <EditForm
+               nombre=""
+               descripcion=""
+               stock=""
+               cantidad=""
+               imagen=""
+               />
             </Form>
             {responseMessage && <p>{responseMessage}</p>}
         </Box>

@@ -1,7 +1,8 @@
 import Box from '@mui/material/Box';
 import {TextField, Button} from '@mui/material';
 
-export default function ProductosForm() {
+export default function EditForm({nombre, descripcion, stock, precio, imagen}) {
+    console.log(nombre)
   return (
         <>
          <div>
@@ -11,6 +12,7 @@ export default function ProductosForm() {
                         label="Nombre"
                         type="text"
                         sx={{mb:3, mr:3, width:'100%'}}
+                        defaultValue={nombre}
                     />
                 </div>
                 <div>
@@ -22,6 +24,7 @@ export default function ProductosForm() {
                         sx={{mb:3, mr:3, width:'100%'}}
                         multiline
                         maxRows={3}
+                        defaultValue={descripcion}
                     />
                 </div>
                 <div style={{width: '100%'}}>
@@ -37,12 +40,14 @@ export default function ProductosForm() {
                             id="stock"
                             label="Cantidad"
                             type="number"
+                            defaultValue={stock}
                         />
                         <TextField
                             required
                             id="precio"
                             label="Precio"
                             type="number"
+                            defaultValue={precio}
                         />
                     </Box>
                 </div>
@@ -52,6 +57,7 @@ export default function ProductosForm() {
                         label="Imagen"
                         type="file"
                         autoComplete="current-password"
+                        defaultValue={imagen}
                         sx={{mb:3, mr:3, width:'100%'}}
                         slotProps={{
                             input:{
@@ -65,7 +71,7 @@ export default function ProductosForm() {
                         }}
                     />
                 </div>
-                <Button key='buttonSubmit' variant='contained' type='submit' sx={{borderRadius: '8px'}}>Agregar</Button>
+                <Button key='buttonSubmit' variant='contained' type='submit' sx={{borderRadius: '8px'}}>Guardar</Button>
         </>
   );
 }
