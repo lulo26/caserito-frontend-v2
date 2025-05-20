@@ -2,17 +2,16 @@ import Box from '@mui/material/Box';
 import {TextField, Button} from '@mui/material';
 
 export default function EditForm({nombre, descripcion, stock, precio, imagen}) {
-    console.log(nombre)
   return (
         <>
          <div>
                     <TextField
                         required
                         name='nombre'
-                        label="Nombre"
+                        label='Nombre'
+                        defaultValue={nombre}
                         type="text"
                         sx={{mb:3, mr:3, width:'100%'}}
-                        defaultValue={nombre}
                     />
                 </div>
                 <div>
@@ -20,11 +19,11 @@ export default function EditForm({nombre, descripcion, stock, precio, imagen}) {
                         required
                         name="descripcion"
                         label="Descripción"
+                        defaultValue={descripcion}
                         type="text"
                         sx={{mb:3, mr:3, width:'100%'}}
                         multiline
                         maxRows={3}
-                        defaultValue={descripcion}
                     />
                 </div>
                 <div style={{width: '100%'}}>
@@ -39,15 +38,15 @@ export default function EditForm({nombre, descripcion, stock, precio, imagen}) {
                             required
                             id="stock"
                             label="Cantidad"
-                            type="number"
                             defaultValue={stock}
+                            type="number"
                         />
                         <TextField
                             required
                             id="precio"
                             label="Precio"
-                            type="number"
                             defaultValue={precio}
+                            type="number"
                         />
                     </Box>
                 </div>
@@ -57,7 +56,6 @@ export default function EditForm({nombre, descripcion, stock, precio, imagen}) {
                         label="Imagen"
                         type="file"
                         autoComplete="current-password"
-                        defaultValue={imagen}
                         sx={{mb:3, mr:3, width:'100%'}}
                         slotProps={{
                             input:{

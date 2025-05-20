@@ -49,7 +49,7 @@ export default function AppGet() {
                 <Typography gutterBottom variant="h5" component="div">
                     {post.nombre}
                 </Typography>
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                <Typography variant="body2" sx={{wordBreak:'break-word', color: 'text.secondary', display: "inline-block", whiteSpace: "pre-line" }}>
                     Descripción: {post.descripcion}
                 </Typography>
                 <Typography variant="body2" sx={{ color: 'text.secondary', mt:3}}>

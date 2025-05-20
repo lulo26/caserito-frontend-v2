@@ -1,9 +1,12 @@
-import * as React from 'react';
-import {Button, Box, Modal, Stack, IconButton} from '@mui/material';
+import React, { useState } from "react";
+import {Button, Box, Modal, Stack, IconButton, Alert} from '@mui/material';
+import { Form } from 'react-router';
 import MuiTypography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
+import axios from 'axios';
 
-import UsuariosForm from './UsuariosForm';
+import VentasForm from './VentasForm';
+import { baseURL } from "../../../store/constant";
 
 const style = {
   position: 'absolute',
@@ -18,10 +21,33 @@ const style = {
   borderRadius: '10px',
 };
 
-export default function UsuariosModal() {
+export default function VentasModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  
+  const [total, setTotal] = useState("");
+  const [Recibido, setRecibido] = useState("");
+  const [responseMessage, setResponseMessage] = useState("");
+  
+      const handleSubmit = (event) => {
+          event.preventDefault();
+          let field = event.target
+  
+          const newVenta = {
+              total: field.total.value,
+              recibido: field.recibido.value,
+          };
+  
+          // Make POST request to send data
+          axios.post(`${baseURL}venta`, newVenta)
+              .then((response) => {
+                  setResponseMessage(<Alert severity="success">Producto Agregado.</Alert>);
+              })
+              .catch((err) => {
+                  setResponseMessage(<Alert severity="error">Hubo un error al agregar el producto.</Alert>);
+              });
+      };
 
   return (
     <div>
@@ -50,9 +76,10 @@ export default function UsuariosModal() {
                 <CloseIcon />
               </IconButton>
           </Stack>  
-          <UsuariosForm/>
-          <Button variant='contained' sx={{borderRadius: '8px'}}>Agregar</Button>
-          <Button onClick={handleClose} variant='contained' sx={{bgcolor: 'secondary.main', ml:3, borderRadius: '8px'}}>Cerrar</Button>
+          <form noValidate autoComplete='off' onSubmit={(e) => handleSubmit(e)}>
+          <VentasForm/>
+          </form>
+          {responseMessage && <p>{responseMessage}</p>}
         </Box>
       </Modal>
     </div>

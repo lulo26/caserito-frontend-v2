@@ -20,9 +20,9 @@ export default function ProductosCard({nombre, descripcion,stock,precio,imagen})
         <Typography gutterBottom variant="h5" component="div">
           {nombre}
         </Typography>
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+        <h3>
           Descripción: {descripcion}
-        </Typography>
+        </h3>
           <Typography variant="body2" sx={{ color: 'text.secondary', mt:3}}>
           Cantidad: {stock}
         </Typography>

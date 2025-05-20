@@ -32,15 +32,19 @@ const style = {
   borderRadius: '10px',
 };
 
-export default function AppPost(IDproducto) {
+export default function AppPost({IDproducto}) {
+  console.log(IDproducto);
+  
     // modal
     const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
+    const handleOpen = () => {
+      setOpen(true)
+      getProductos()     
+    };
     const handleClose = () => setOpen(false);
     
 
     // Post request
-    const IDstring = IDproducto.IDproducto
     const [nombre, setNombre] = useState("");
     const [descripcion, setDescripcion] = useState("");
     const [stock, setStock] = useState("");
@@ -64,7 +68,7 @@ export default function AppPost(IDproducto) {
         };
 
         // Make POST request to send data
-        axios.put(`${baseURL}producto/${IDstring}`, editedProduct)
+        axios.put(`${baseURL}producto/${IDproducto}`, editedProduct)
             .then((response) => {
                 setResponseMessage(<Alert severity="success">Producto Editado.</Alert>);
             })
@@ -73,25 +77,21 @@ export default function AppPost(IDproducto) {
             });
     };
 
-    const getOneProducto = async()=>{
-        let {data} = await axios.get(`${baseURL}producto/${IDstring}`)
-        setResponse(data.data)
+    const getOneProducto = ()=>{
+        return axios.get(`${baseURL}producto/${IDproducto}`)
     }   
    
     useEffect(()=>{
          getProductos()
-    }, [producto])
+    }, [producto]) 
 
     const getProductos = ()=>{
-      console.log(getOneProducto());
-      
-        const response = getOneProducto()
+        const response =  getOneProducto()
         response.then((res) =>{
-            setProducto(res.data.data)
+          setProducto(res.data.data)
         })
     }
     
-
     return (   
     <div>
     <Button onClick={handleOpen} variant='contained' size='small' sx={{borderRadius: '8px'}}>Editar</Button>
@@ -121,11 +121,10 @@ export default function AppPost(IDproducto) {
           </Stack>              
             <Form noValidate autoComplete='off' onSubmit={(e) => handleSubmit(e)}>
                <EditForm
-               nombre=""
-               descripcion=""
-               stock=""
-               cantidad=""
-               imagen=""
+                nombre={producto.nombre}
+                descripcion={producto.descripcion}
+                stock={producto.stock}
+                precio={producto.precio}
                />
             </Form>
             {responseMessage && <p>{responseMessage}</p>}

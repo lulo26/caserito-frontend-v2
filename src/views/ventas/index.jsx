@@ -1,20 +1,30 @@
 // material-ui
-import Typography from '@mui/material/Typography';
+import { useState } from 'react';
+import axios from 'axios';
+import { Stack } from '@mui/material';
+
+import VentasModal from './components/VentasModal';
 
 // project imports
-import MainCard from 'ui-component/cards/MainCard';
-
-// ==============================|| SAMPLE PAGE ||============================== //
+import VentasTable from './components/VentasTable';
 
 export default function Ventas() {
-  return (
-    <MainCard title="Sample Card">
-      <Typography variant="body2">
-        Lorem ipsum dolor sit amen, consenter nipissing eli, sed do elusion tempos incident ut laborers et doolie magna alissa. Ut enif ad
-        minim venice, quin nostrum exercitation illampu laborings nisi ut liquid ex ea commons construal. Duos aube grue dolor in
-        reprehended in voltage veil esse colum doolie eu fujian bulla parian. Exceptive sin ocean cuspidate non president, sunk in culpa qui
-        officiate descent molls anim id est labours.
-      </Typography>
-    </MainCard>
-  );
+  const [response, setResponse] = useState([])
+    const [page, setPage] = useState()
+    // Consumir api
+    const leerApi = async()=>{
+        let {data} = await axios.get('http://127.0.0.1:8000/api/venta')
+        setResponse(data.data)
+        setPage(data.page)
+        console.log(data);
+        
+    }
+  return (<>
+  
+   <Stack direction='row' spacing={2} alignItems='center' sx={{mb: 4}}>
+      <h1>Ventas</h1> 
+      <VentasModal/>
+    </Stack>
+    <VentasTable/>
+    </>);
 }
