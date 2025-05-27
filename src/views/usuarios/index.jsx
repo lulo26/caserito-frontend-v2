@@ -1,29 +1,17 @@
 // material-ui
-import { useState } from 'react';
-import axios from 'axios';
-import UsuariosModal from './components/UsuariosModal';
 import { Stack } from '@mui/material';
 
 // project imports
-import UsuariosTable from './components/UsuariosTable';
+import UsersTable from './components/UsersTable';
+import UsersModal from './components/UsersModal';
 
 export default function Usuarios() {
-  const [response, setResponse] = useState([])
-    const [page, setPage] = useState()
-    // Consumir api
-    const leerApi = async()=>{
-        let {data} = await axios.get('https://reqres.in/api/users?page=2')
-        setResponse(data.data)
-        setPage(data.page)
-        console.log(data);
-        
-    }
   return (<>
   
    <Stack direction='row' spacing={2} alignItems='center' sx={{mb: 4}}>
       <h1>Usuarios</h1> 
-      <UsuariosModal/>
+      <UsersModal/>
     </Stack>
-    <UsuariosTable/>
+    <UsersTable/>
     </>);
 }

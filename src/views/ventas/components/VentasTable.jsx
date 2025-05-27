@@ -4,7 +4,6 @@ import { baseURL } from '../../../store/constant';
 import Loader from "../../../ui-component/Loader";
 import Loading from "../../productos/components/Loading";
 import axios from "axios";
-import { Button } from "@mui/material";
 
 const columns = [
   { field: 'id', headerName: 'ID' },

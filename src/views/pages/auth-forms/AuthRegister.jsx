@@ -42,7 +42,6 @@ export default function AuthRegister() {
   return (
     <>     
       <Grid container spacing={{ xs: 0, sm: 2 }}>
-        <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             fullWidth
             label="Nombre"
@@ -51,17 +50,6 @@ export default function AuthRegister() {
             type="text"
             sx={{ ...theme.typography.customInput }}
           />
-        </Grid>
-        <Grid size={{ xs: 12, sm: 6 }}>
-          <TextField
-            fullWidth
-            label="Documento"
-            margin="normal"
-            name="documento"
-            type="number"
-            sx={{ ...theme.typography.customInput }}
-          />
-        </Grid>
       </Grid>
       <FormControl fullWidth sx={{ ...theme.typography.customInput }}>
         <InputLabel htmlFor="outlined-adornment-email-register">Correo electronico</InputLabel>
