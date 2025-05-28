@@ -26,13 +26,18 @@ export default function VentasModal() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   
+  const [venta_id, setVenta_id] = useState('');
+  const [producto_id, setProducto_id] = useState('')
+  const [precio, setPrecio] = useState('')
+  const [cantidad, setCantidad] = useState('')
   const [total, setTotal] = useState("");
+  const [totalProducto, setTotalProducto] = useState("")
   const [Recibido, setRecibido] = useState("");
   const [responseMessage, setResponseMessage] = useState("");
   
-      const handleSubmit = (event) => {
-          event.preventDefault();
-          let field = event.target
+      const handleSubmit = (e) => {
+          e.preventDefault();
+          let field = e.target
   
           const newVenta = {
               total: field.total.value,
@@ -47,7 +52,44 @@ export default function VentasModal() {
               .catch((err) => {
                   setResponseMessage(<Alert severity="error">Hubo un error al agregar la venta.</Alert>);
               });
+
+              const NewItem = {
+          venta_id: field.venta_id.value,
+          producto_id: field.producto_id.value,
+          precio: field.producto_id.value,
+          cantidad: field.cantidad.value,
+          total: field.totalProducto.value
+        }
+
+        axios.post(`${baseURL}items`, NewItem)
+              .then((response) => {
+                  setResponseMessage(<Alert severity="success">Venta Agregada.</Alert>);
+              })
+              .catch((err) => {
+                  setResponseMessage(<Alert severity="error">Hubo un error al agregar la venta.</Alert>);
+              });
       };
+
+      /* const handleSubmitItems = (e)=>{
+        e.preventDefault();
+        let field = e.target
+
+        const NewItem = {
+          venta_id: field.venta_id.value,
+          producto_id: field.producto_id.value,
+          precio: field.precio.value,
+          cantidad: field.cantidad.value,
+          total: field.totalProducto.value
+        }
+
+        axios.post(`${baseURL}items`, NewItem)
+              .then((response) => {
+                  setResponseMessage(<Alert severity="success">Venta Agregada.</Alert>);
+              })
+              .catch((err) => {
+                  setResponseMessage(<Alert severity="error">Hubo un error al agregar la venta.</Alert>);
+              });
+      } */
 
   return (
     <div>
