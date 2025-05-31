@@ -19,10 +19,19 @@ import Breadcrumbs from 'ui-component/extended/Breadcrumbs';
 
 import useConfig from 'hooks/useConfig';
 import { handlerDrawerOpen, useGetMenuMaster } from 'api/menu';
+import { ACCESS_TOKEN_NAME } from '../../store/constant';
+import { useNavigate } from 'react-router-dom';
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
 export default function MainLayout() {
+
+  const localStorageToken = localStorage.getItem(ACCESS_TOKEN_NAME) 
+    console.log(localStorageToken);
+    const navigate = useNavigate();
+    if (!localStorageToken){
+      navigate('/pages/login')}
+
   const theme = useTheme();
   const downMD = useMediaQuery(theme.breakpoints.down('md'));
 

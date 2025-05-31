@@ -12,7 +12,7 @@ import AppPut from "./AppPut";
 import AppDelete from "./AppDelete";
 
 export default function AppGet() {
-    const productoURL = baseURL + 'producto'
+    const productoURL = baseURL + '/producto'
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -29,14 +29,20 @@ export default function AppGet() {
                 setLoading(false);
             });
     }, []);
-
+    const isEmpty = (obj)=>{
+        let test = obj === undefined
+        console.log(test);
+        return test;
+    }
     if (loading) return (<><Loader/> <Loading/></>);
     if (error) return <div>Error: {error}</div>;
 
     return (
     <Box sx={{ flexGrow: 1 }}>
     <Grid2 container spacing={2}>
-    {data.data.map((post) => (
+        {!isEmpty(data.data) 
+        ? (<>
+        {data.data.map((post) => (
         <Grid2 key={post.id}>
             <Card sx={{ maxWidth: 345 }}>
             <CardMedia
@@ -66,6 +72,10 @@ export default function AppGet() {
             </Card>
         </Grid2>
     ))}
+        </>) 
+        : (<>
+        <Typography>No se encontraron productos</Typography>
+        </>)}
     </Grid2>
     </Box>
     );

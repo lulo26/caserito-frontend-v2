@@ -19,7 +19,7 @@ export default function UsersTable() {
   
     useEffect(() => {
           // Make GET request to fetch data
-      axios.get(`${baseURL}user`)
+      axios.get(`${baseURL}/user`)
         .then((response) => {
           setTableData(response.data.data);
           setLoading(false);

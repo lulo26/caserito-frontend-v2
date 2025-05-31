@@ -45,7 +45,7 @@ export default function VentasModal() {
           };
   
           // Make POST request to send data
-          axios.post(`${baseURL}venta`, newVenta)
+          axios.post(`${baseURL}/venta`, newVenta)
               .then((response) => {
                   setResponseMessage(<Alert severity="success">Venta Agregada.</Alert>);
               })
@@ -61,7 +61,7 @@ export default function VentasModal() {
           total: field.totalProducto.value
         }
 
-        axios.post(`${baseURL}items`, NewItem)
+        axios.post(`${baseURL}/items`, NewItem)
               .then((response) => {
                   setResponseMessage(<Alert severity="success">Venta Agregada.</Alert>);
               })

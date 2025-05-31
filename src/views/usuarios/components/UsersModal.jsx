@@ -42,7 +42,7 @@ export default function UsersModal() {
           };
   
           // Make POST request to send data
-          axios.post(`${baseURL}user`, newUser)
+          axios.post(`${baseURL}/user`, newUser)
               .then((response) => {
                   setResponseMessage(<Alert severity="success">Usuario Agregado.</Alert>);
               })

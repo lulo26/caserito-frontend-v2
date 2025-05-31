@@ -38,7 +38,7 @@ export default function AppPost() {
     const handleClose = () => setOpen(false);
 
     // Post request
-    const productoURL = baseURL + 'producto'
+    const productoURL = baseURL + '/producto'
     const [nombre, setNombre] = useState("");
     const [descripcion, setDescripcion] = useState("");
     const [stock, setStock] = useState("");

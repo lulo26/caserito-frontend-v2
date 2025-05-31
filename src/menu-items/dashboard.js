@@ -1,8 +1,8 @@
 // assets
-import { IconDashboard, IconPackage, IconUser, IconBuildingStore } from '@tabler/icons-react';
+import { IconDashboard, IconPackage, IconUser, IconBuildingStore, IconKey } from '@tabler/icons-react';
 
 // constant
-export const icons = { IconDashboard, IconPackage, IconUser, IconBuildingStore };
+export const icons = { IconDashboard, IconPackage, IconUser, IconBuildingStore, IconKey };
 
 // ==============================|| DASHBOARD MENU ITEMS ||============================== //
 
@@ -42,8 +42,8 @@ const dashboard = {
       url: '/ventas',
       icon: icons.IconBuildingStore,
       breadcrumbs: false
-    }
-  ]
+    },
+  ],
 };
 
 export default dashboard;

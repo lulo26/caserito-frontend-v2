@@ -4,6 +4,8 @@ import { lazy } from 'react';
 import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
 
+import PrivateRoute from '../utils/PrivateRoute';
+import { ACCESS_TOKEN_NAME } from '../store/constant';
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
 
@@ -12,12 +14,14 @@ const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')))
 const Usuarios = Loadable(lazy(() => import('views/usuarios')));
 const Productos = Loadable(lazy(() => import('views/productos')));
 const Ventas = Loadable(lazy(() => import('views/ventas')));
+const Logout = Loadable(lazy(() => import('views/logout')));
+
 
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
   path: '/',
-  element: <MainLayout />,
+  element: <MainLayout><PrivateRoute/></MainLayout>,
   children: [
     {
       path: '/',
@@ -43,8 +47,14 @@ const MainRoutes = {
     {
       path: '/ventas',
       element: <Ventas />
+    },
+    {
+      path: '/logout',
+      element: <Logout />
     }
   ]
 };
 
-export default MainRoutes;
+export {
+  MainRoutes
+}

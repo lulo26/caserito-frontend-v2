@@ -33,8 +33,6 @@ const style = {
 };
 
 export default function AppPost({IDproducto}) {
-  console.log(IDproducto);
-  
     // modal
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
@@ -68,7 +66,7 @@ export default function AppPost({IDproducto}) {
         };
 
         // Make POST request to send data
-        axios.put(`${baseURL}producto/${IDproducto}`, editedProduct)
+        axios.put(`${baseURL}/producto/${IDproducto}`, editedProduct)
             .then((response) => {
                 setResponseMessage(<Alert severity="success">Producto Editado.</Alert>);
             })
@@ -78,7 +76,7 @@ export default function AppPost({IDproducto}) {
     };
 
     const getOneProducto = ()=>{
-        return axios.get(`${baseURL}producto/${IDproducto}`)
+        return axios.get(`${baseURL}/producto/${IDproducto}`)
     }   
    
     useEffect(()=>{

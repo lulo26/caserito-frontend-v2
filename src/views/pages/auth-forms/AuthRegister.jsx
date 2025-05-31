@@ -1,20 +1,18 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid2';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import axios from 'axios';
+import { Alert } from '@mui/material';
 
 // project imports
 import AnimateButton from 'ui-component/extended/AnimateButton';
@@ -22,10 +20,12 @@ import AnimateButton from 'ui-component/extended/AnimateButton';
 // assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { baseURL } from '../../../store/constant';
 
 // ===========================|| JWT - REGISTER ||=========================== //
 
 export default function AuthRegister() {
+  const navigate = useNavigate();
   const theme = useTheme();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -39,11 +39,39 @@ export default function AuthRegister() {
     event.preventDefault();
   };
 
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [responseMessage, setResponseMessage] = useState("");
+  
+      const handleSubmit = (event) => {
+          event.preventDefault();
+          let field = event.target
+  
+          const newUser = {
+              name: field.name.value,
+              email: field.email.value,
+              password: field.password.value
+          };
+  
+          // Make POST request to send data
+          axios.post(`${baseURL}/user`, newUser)
+              .then((response) => {
+                  setResponseMessage(<Alert severity="success">Usuario creado.</Alert>);
+                  navigate('/')
+              })
+              .catch((err) => {
+                  setResponseMessage(<Alert severity="error">Hubo un error al crear el usuario.</Alert>);
+              });
+      };
+
   return (
     <>     
+    <form action='submit' onSubmit={(e) => handleSubmit(e)}>
       <Grid container spacing={{ xs: 0, sm: 2 }}>
           <TextField
             fullWidth
+            id='name'
             label="Nombre"
             margin="normal"
             name="nombre"
@@ -51,15 +79,15 @@ export default function AuthRegister() {
             sx={{ ...theme.typography.customInput }}
           />
       </Grid>
-      <FormControl fullWidth sx={{ ...theme.typography.customInput }}>
         <InputLabel htmlFor="outlined-adornment-email-register">Correo electronico</InputLabel>
-        <OutlinedInput id="outlined-adornment-email-register" type="email" name="email" inputProps={{}} />
-      </FormControl>
-
-      <FormControl fullWidth sx={{ ...theme.typography.customInput }}>
+        <OutlinedInput 
+        id="email" 
+        type="email" 
+        name="email" 
+        inputProps={{}} />
         <InputLabel htmlFor="outlined-adornment-password-register">Contraseña</InputLabel>
         <OutlinedInput
-          id="outlined-adornment-password-register"
+          id="password"
           type={showPassword ? 'text' : 'password'}
           name="password"
           label="Contraseña"
@@ -78,7 +106,6 @@ export default function AuthRegister() {
           }
           inputProps={{}}
         />
-      </FormControl>
 
       <Box sx={{ mt: 2 }}>
         <AnimateButton>
@@ -87,6 +114,7 @@ export default function AuthRegister() {
           </Button>
         </AnimateButton>
       </Box>
+      </form>
     </>
   );
 }

@@ -8,7 +8,7 @@ export default function AppDelete(IDproducto){
     const IDstring = IDproducto.IDproducto
     const [responseMessage, setResponseMessage] = useState("");
     const DeleteProducto = ()=>{
-        axios.delete(`${baseURL}producto/${IDstring}`)
+        axios.delete(`${baseURL}/producto/${IDstring}`)
             .then((response) => console.log(response))
             .catch((error) => console.log(error.message))
     }

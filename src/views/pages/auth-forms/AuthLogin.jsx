@@ -18,6 +18,11 @@ import BackToHome from '../authentication/BackToHome';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
+import axios from 'axios';
+import { ACCESS_TOKEN_NAME, baseURL } from '../../../store/constant';
+
+import { useNavigate } from 'react-router';
+
 // ===============================|| JWT - LOGIN ||=============================== //
 
 export default function AuthLogin() {
@@ -32,20 +37,74 @@ export default function AuthLogin() {
     event.preventDefault();
   };
 
+    const [state, setState] = useState({
+      email:'',
+      password:''
+    })
+
+    const handleChange = (e)=>{
+      const {id, value} = e.target
+      setState(prevState =>({
+        ...prevState, 
+        [id] : value
+      }))
+    }
+
+    const handleSubmitClick = (e)=>{
+      e.preventDefault()
+      const payload = {
+        'email': state.email,
+        'password': state.password
+      }
+      axios.post(`${baseURL}/login`,payload)
+      .then(function(response){
+        if(response.status == 200){
+          setState(prevState =>({
+            ...prevState,
+            'successMesage' : 'sesión iniciada correctamente'
+          }))
+          localStorage.setItem(ACCESS_TOKEN_NAME, response.data.data)
+          console.log(response.data.data);
+          navigate('/')
+          
+        }
+        else if(response.code === 204){
+                    props.showError("El correo y la contraseña no coinciden");
+                }
+                else{
+                    props.showError("El correo no está registrado");
+                }
+            })
+        .catch(function (error) {
+                console.log(error);
+            
+      })
+    }
+
+    const navigate = useNavigate();
+
   return (
     <>
     <BackToHome/>
-      <FormControl fullWidth sx={{ ...theme.typography.customInput }}>
-        <InputLabel htmlFor="outlined-adornment-email-login">Correo</InputLabel>
-        <OutlinedInput id="outlined-adornment-email-login" type="email" name="email"/>
-      </FormControl>
+    <form action='submit'>
+        <InputLabel htmlFor="email">Correo</InputLabel>
+        <OutlinedInput 
+        id="email" 
+        type="email" 
+        name="email"
+        value={state.email}
+        onChange={handleChange}
+        sx={{mb:3, mr:3, width:'100%'}}
+        />
 
-      <FormControl fullWidth sx={{ ...theme.typography.customInput }}>
-        <InputLabel htmlFor="outlined-adornment-password-login">Contraseña</InputLabel>
+        <InputLabel htmlFor="password">Contraseña</InputLabel>
         <OutlinedInput
-          id="outlined-adornment-password-login"
+          id="password"
           type={showPassword ? 'text' : 'password'}
           name="password"
+          value={state.password}
+          onChange={handleChange}
+          sx={{mb:3, mr:3, width:'100%'}}
           endAdornment={
             <InputAdornment position="end">
               <IconButton
@@ -61,14 +120,19 @@ export default function AuthLogin() {
           }
           label="Password"
         />
-      </FormControl>
       <Box sx={{ mt: 2 }}>
         <AnimateButton>
-          <Button color="secondary" fullWidth size="large" type="submit" variant="contained">
+          <Button 
+          color="secondary" 
+          fullWidth size="large" 
+          type="submit" 
+          variant="contained" 
+          onClick={handleSubmitClick}>
             Iniciar
           </Button>
         </AnimateButton>
       </Box>
+      </form>
     </>
   );
 }

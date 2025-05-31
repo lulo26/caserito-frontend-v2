@@ -83,7 +83,7 @@ export default function VentasForm() {
   },[recibido, total])
 
   const getAllProductos = () =>{
-    const response = axios.get(`${baseURL}producto`)
+    const response = axios.get(`${baseURL}/producto`)
     response.then((res)=>{
       setProducto_id(res.data.data)
     })

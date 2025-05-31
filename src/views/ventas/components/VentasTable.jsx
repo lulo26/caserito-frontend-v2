@@ -19,7 +19,7 @@ export default function VentasTable() {
   
     useEffect(() => {
           // Make GET request to fetch data
-      axios.get(`${baseURL}venta`)
+      axios.get(`${baseURL}/venta`)
         .then((response) => {
           setTableData(response.data.data);
           setLoading(false);
