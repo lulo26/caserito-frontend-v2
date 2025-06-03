@@ -59,7 +59,11 @@ export default function AppPost() {
         };
 
         // Make POST request to send data
-        axios.post(productoURL, newProduct)
+        axios.post(productoURL, newProduct, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
             .then((response) => {
                 setResponseMessage(<Alert severity="success">Producto Agregado.</Alert>);
             })
@@ -95,7 +99,7 @@ export default function AppPost() {
                 <CloseIcon />
               </IconButton>
           </Stack>              
-            <Form noValidate autoComplete='off' onSubmit={(e) => handleSubmit(e)}>
+            <Form noValidate autoComplete='off' onSubmit={(e) => handleSubmit(e)} >
                <ProductosForm/>
             </Form>
             {responseMessage && <p>{responseMessage}</p>}
