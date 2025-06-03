@@ -1,0 +1,113 @@
+:root{
+--color: #a81c1c; 
+}
+
+body{
+      background-color: #ffe5f3;
+}
+
+.container {
+  font-size: 28px;
+  color: var(--color);
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-image: url(./img/caserito.png);
+  background-size: cover;
+  background-position: center;
+  
+  background-attachment: fixed;
+}
+
+.container h1{
+  font-size: 120px;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 3rem;
+}
+
+p {
+  max-width: 52ch;
+  line-height: 1.5;
+  padding: 1em;
+}
+
+nav{
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 4vh 6vh 0 0;
+    height: 60px;
+}
+
+nav a{
+    color: var(--color);
+    text-decoration: none;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 18px;
+    transition: all .3s;
+}
+
+nav a:hover{
+    background-color: var(--color);
+    color: #fff;
+}
+
+.bottomText{
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  background-image: url(./img/caserito.png);
+  background-size: cover;
+  background-position: center;
+  
+  background-attachment: fixed;
+}
+
+.bottomText a {
+  display: inline-block;
+  padding: 1em 3.5em;
+  background-color: var(--color);
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-radius: 0.3em;
+  font-weight: 700;
+  letter-spacing: .5px;
+  font-size: .875rem;
+  margin-bottom: 18vh;
+}
+
+.blank,
+.other {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  width: 100%;
+  min-height: 20vh;
+  background-color: var(--color);
+}
+
+.blankText{
+    color: #fff;
+    font-size: 5rem;
+}
+
+.second {
+  padding-top: 24px;
+  background-attachment: fixed;
+
+  flex-wrap: wrap
+}
+
+h3 {
+  font-weight: 700;
+  font-size: 1.6rem;
+  margin-top: 1em;
+}

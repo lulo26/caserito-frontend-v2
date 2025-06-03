@@ -9,6 +9,9 @@ import { ACCESS_TOKEN_NAME } from '../store/constant';
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
 
+//landing
+const Landing = Loadable(lazy(() => import('views/landing')));
+
 
 // sample page routin
 const Usuarios = Loadable(lazy(() => import('views/usuarios')));
@@ -21,37 +24,38 @@ const Logout = Loadable(lazy(() => import('views/pages/auth-forms/AuthLogin')));
 
 const MainRoutes = {
   path: '/',
-  element: <MainLayout><PrivateRoute/></MainLayout>,
+  element: '',
   children: [
     {
-      path: '/',
-      element: <DashboardDefault />
+      path:'/',
+      element: <Landing />
     },
     {
-      path: 'dashboard',
+      path: '/admin',
+      element: <MainLayout><PrivateRoute/></MainLayout>,
       children: [
         {
-          path: 'default',
+          path: 'dashboard',
           element: <DashboardDefault />
+        },
+        {
+          path: 'usuarios',
+          element: <Usuarios />
+        },
+        {
+          path: 'productos',
+          element: <Productos />
+        },
+        {
+          path: 'ventas',
+          element: <Ventas />
+        },
+        {
+          path: 'logout',
+          element: <Logout />
         }
       ]
     },
-    {
-      path: '/usuarios',
-      element: <Usuarios />
-    },
-    {
-      path: '/productos',
-      element: <Productos />
-    },
-    {
-      path: '/ventas',
-      element: <Ventas />
-    },
-    {
-      path: '/logout',
-      element: <Logout />
-    }
   ]
 };
 

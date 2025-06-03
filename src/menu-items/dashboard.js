@@ -15,7 +15,7 @@ const dashboard = {
       id: 'default',
       title: 'Dashboard',
       type: 'item',
-      url: '/dashboard/default',
+      url: 'dashboard',
       icon: icons.IconDashboard,
       breadcrumbs: false
     },
@@ -23,7 +23,7 @@ const dashboard = {
       id: 'productos',
       title: 'Productos',
       type: 'item',
-      url: '/productos',
+      url: 'productos',
       icon: icons.IconPackage,
       breadcrumbs: false
     },
@@ -31,7 +31,7 @@ const dashboard = {
       id: 'usuarios',
       title: 'Usuarios',
       type: 'item',
-      url: '/usuarios',
+      url: 'usuarios',
       icon: icons.IconUser,
       breadcrumbs: false
     },
@@ -39,7 +39,7 @@ const dashboard = {
       id: 'ventas',
       title: 'Ventas',
       type: 'item',
-      url: '/ventas',
+      url: 'ventas',
       icon: icons.IconBuildingStore,
       breadcrumbs: false
     },
