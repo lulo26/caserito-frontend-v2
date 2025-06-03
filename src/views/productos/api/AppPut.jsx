@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Form } from "react-router";
+import { useNavigate } from "react-router";
 
 import { 
   Stack, 
@@ -33,6 +34,7 @@ const style = {
 };
 
 export default function AppPost({ IDproducto }) {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
 
@@ -79,6 +81,7 @@ export default function AppPost({ IDproducto }) {
     } catch (error) {
       setResponseMessage(<Alert severity="error">Error al editar el producto</Alert>);
     }
+    navigate(0)
   };
 
   const getProducto = async () => {

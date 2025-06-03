@@ -49,10 +49,13 @@ export default function VentasForm() {
     let totalSum = 0
     let updateFields = [...inputFields]
     for (let i = 0; i < inputFields.length; i++) {
-      if (!isNaN(parseInt(inputFields[i].cantidad))) {
-        const totalProductoSum = parseInt(inputFields[i].producto_id) * parseInt(inputFields[i].cantidad) 
+      if (!isNaN(parseInt(inputFields[i].cantidad)) && inputFields[i].producto_id) {
+        const selectedProduct = producto_id.find(p => p.id === parseInt(inputFields[i].producto_id)) 
+        if (selectedProduct){
+          const totalProductoSum = selectedProduct.precio * parseInt(inputFields[i].cantidad) 
         totalSum += totalProductoSum 
         updateFields[i] = {...updateFields[i], totalProducto: totalProductoSum}
+        }
       }
       console.log(`total producto suma: ${inputFields[i].totalProducto}`);
     }
@@ -117,7 +120,9 @@ export default function VentasForm() {
             <em>Seleccione el producto</em>
           </MenuItem>
           {producto_id.map((producto)=>(
-            <MenuItem name='producto.id' value={producto.precio}>{producto.nombre}</MenuItem>
+            <MenuItem key={producto.id} value={producto.id}>
+              {producto.nombre} - ${producto.precio}
+            </MenuItem>
           ))}
         </Select>
         <TextField

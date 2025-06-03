@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Form } from "react-router";
+import { Form, useNavigate } from "react-router";
+import { Navigate } from "react-router";
 
 import { 
   Stack, 
@@ -36,15 +37,13 @@ export default function AppPost() {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const navigate = useNavigate();
 
     // Post request
     const productoURL = baseURL + '/producto'
-    const [nombre, setNombre] = useState("");
-    const [descripcion, setDescripcion] = useState("");
-    const [stock, setStock] = useState("");
-    const [precio, setPrecio] = useState("");
-    const [imagen, setImagen] = useState("");
     const [responseMessage, setResponseMessage] = useState("");
+
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -56,11 +55,13 @@ export default function AppPost() {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-      });
-      setResponseMessage('Producto agregado exitosamente');
+      })
+      setResponseMessage(<Alert severity="success">Producto agregado exitosamente</Alert>);
+      navigate(0)
     } catch (error) {
-      setResponseMessage('Error al agregar producto');
+      setResponseMessage(<Alert severity="error">Error al agregar el producto</Alert>);
     }
+    
   };
 
     return (   

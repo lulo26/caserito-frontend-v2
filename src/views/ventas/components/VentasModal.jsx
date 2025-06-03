@@ -8,6 +8,7 @@ import axios from 'axios';
 import VentasForm from './VentasForm';
 import { baseURL } from "../../../store/constant";
 
+import { useNavigate } from "react-router";
 /* const style = {
   position: 'absolute',
   top: '50%',
@@ -22,6 +23,7 @@ import { baseURL } from "../../../store/constant";
 }; */
 
 export default function VentasModal() {
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -48,6 +50,7 @@ export default function VentasModal() {
           axios.post(`${baseURL}/venta`, newVenta)
               .then((response) => {
                   setResponseMessage(<Alert severity="success">Venta Agregada.</Alert>);
+                  navigate(0)
               })
               .catch((err) => {
                   setResponseMessage(<Alert severity="error">Hubo un error al agregar la venta.</Alert>);
@@ -60,15 +63,9 @@ export default function VentasModal() {
           cantidad: field.cantidad.value,
           total: field.totalProducto.value
         }
-
-        axios.post(`${baseURL}/items`, NewItem)
-              .then((response) => {
-                  setResponseMessage(<Alert severity="success">Venta Agregada.</Alert>);
-              })
-              .catch((err) => {
-                  setResponseMessage(<Alert severity="error">Hubo un error al agregar la venta.</Alert>);
-              });
       };
+
+
 
       /* const handleSubmitItems = (e)=>{
         e.preventDefault();

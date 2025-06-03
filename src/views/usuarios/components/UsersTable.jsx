@@ -4,18 +4,48 @@ import { baseURL } from '../../../store/constant';
 import Loader from "../../../ui-component/Loader";
 import Loading from "../../productos/components/Loading";
 import axios from "axios";
+import { Stack, Button, colors } from "@mui/material";
+import { blue } from "@mui/material/colors";
+import { useNavigate } from "react-router";
 
-const columns = [
-  { field: 'id', headerName: 'ID' },
-  { field: 'name', headerName: 'Nombre', width: 300 },
-  { field: 'email', headerName: 'Correo', width: 200 },
-  { field: 'created_at', headerName: 'Fecha creación', width: 600 }
-]
+
 
 export default function UsersTable() {
+  const navigate = useNavigate();
+
+  const columns = [
+  { field: 'id', headerName: 'ID' },
+  { field: 'name', headerName: 'Nombre', width: 200 },
+  { field: 'email', headerName: 'Correo', width: 300 },
+  { field: 'created_at', headerName: 'Fecha creación', width: 300 },
+  {
+    field: 'actions',
+    headerName: 'Acciones',
+    width: 200,
+    renderCell: (params) => (
+        <Button
+          variant='contained'
+          size="small"
+          onClick={() => handleDelete(params.row.id)}
+          color='error'
+        >
+          Eliminar
+        </Button>
+    ),
+  },
+]
+
+  const handleDelete = (id) => {
+    axios.delete(`${baseURL}/user/${id}`)
+    .then((response) => navigate(0))
+    .catch((error) => console.log(error.message))
+
+  };
+
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [tableData, setTableData] = useState([])
+    const [tableData, setTableData] = useState([
+    ])
   
     useEffect(() => {
           // Make GET request to fetch data
@@ -31,6 +61,8 @@ export default function UsersTable() {
     }, []);
     console.log(tableData);
     
+      
+
       if (loading) return (<><Loader/> <Loading/></>);
       if (error) return <div>Error: {error}</div>;
 
