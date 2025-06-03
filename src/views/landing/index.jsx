@@ -63,7 +63,7 @@ const imgURL = 'http://168.231.112.194:8098/storage/'
             }); */
             axios({
                 method: 'get',
-                url: `productoURL`,
+                url: productoURL,
                 responseType: 'json'
             })
             .then((response) => {
