@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import {TextField, Button} from '@mui/material';
 
@@ -54,6 +55,7 @@ export default function ProductosForm() {
                         }}>
                         <TextField
                             required
+                            name='stock'
                             id="stock"
                             label="Cantidad"
                             value={formData.stock}
@@ -62,6 +64,7 @@ export default function ProductosForm() {
                         />
                         <TextField
                             required
+                            name='precio'
                             id="precio"
                             label="Precio"
                             value={formData.precio}
@@ -73,6 +76,7 @@ export default function ProductosForm() {
                 <div>
                     <TextField
                         id="imagen"
+                        name='imagen'
                         label="Imagen"
                         type="file"
                         onChange={handleFileChange}
