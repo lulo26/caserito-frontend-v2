@@ -14,7 +14,7 @@ const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')))
 const Usuarios = Loadable(lazy(() => import('views/usuarios')));
 const Productos = Loadable(lazy(() => import('views/productos')));
 const Ventas = Loadable(lazy(() => import('views/ventas')));
-const Logout = Loadable(lazy(() => import('views/logout')));
+const Logout = Loadable(lazy(() => import('views/pages/auth-forms/AuthLogin')));
 
 
 // ==============================|| MAIN ROUTING ||============================== //
