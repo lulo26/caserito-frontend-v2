@@ -3,8 +3,6 @@ import Stack from '@mui/material/Stack';
 
 import AppGet from './api/AppGet';
 
-import ProductsManager from './api/ProductManager';
-
 export default function Productos() {
   return (
   <>
