@@ -12,7 +12,7 @@ import AppPut from "./AppPut";
 import AppDelete from "./AppDelete";
 
 export default function AppGet() {
-    const imgURL = 'http://127.0.0.1:8000/storage/'
+    const imgURL = 'http://168.231.112.194:8098/storage/'
     const productoURL = baseURL + '/producto'
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
