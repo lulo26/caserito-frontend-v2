@@ -52,7 +52,20 @@ const imgURL = 'http://168.231.112.194:8098/storage/'
 
     useEffect(() => {
         // Make GET request to fetch data
-        axios.get(productoURL)
+/*         axios.get(productoURL)
+            .then((response) => {
+                setData(response.data);
+                setLoading(false);
+            })
+            .catch((err) => {
+                setError(err.message);
+                setLoading(false);
+            }); */
+            axios({
+                method: 'get',
+                url: `productoURL`,
+                responseType: 'json'
+            })
             .then((response) => {
                 setData(response.data);
                 setLoading(false);
