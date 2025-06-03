@@ -11,6 +11,7 @@ const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')))
 
 //landing
 const Landing = Loadable(lazy(() => import('views/landing')));
+const Producto = Loadable(lazy(() => import('views/landing/producto')));
 
 
 // sample page routin
@@ -29,6 +30,10 @@ const MainRoutes = {
     {
       path:'/',
       element: <Landing />
+    },
+    {
+      path:'/producto/:id',
+      element: <Producto />
     },
     {
       path: '/admin',
