@@ -79,19 +79,26 @@ export default function AuthRegister() {
             sx={{ ...theme.typography.customInput }}
           />
       </Grid>
-        <InputLabel htmlFor="outlined-adornment-email-register">Correo electronico</InputLabel>
-        <OutlinedInput 
-        id="email" 
-        type="email" 
-        name="email" 
-        inputProps={{}} />
-        <InputLabel htmlFor="outlined-adornment-password-register">Contraseña</InputLabel>
-        <OutlinedInput
-          id="password"
-          type={showPassword ? 'text' : 'password'}
-          name="password"
-          label="Contraseña"
-          endAdornment={
+      <Grid container spacing={{ xs: 0, sm: 2 }}>
+          <TextField
+            fullWidth
+            id='email'
+            label="Correo electrónico"
+            margin="normal"
+            name="email"
+            type="email"
+            sx={{ ...theme.typography.customInput }}
+          />
+      </Grid>
+            <Grid container spacing={{ xs: 0, sm: 2 }}>
+          <TextField
+            fullWidth
+            id='password'
+            label="Contraseña"
+            margin="normal"
+            name="password"
+            type={showPassword ? 'text' : 'password'}
+            endAdornment={
             <InputAdornment position="end">
               <IconButton
                 aria-label="toggle password visibility"
@@ -104,9 +111,9 @@ export default function AuthRegister() {
               </IconButton>
             </InputAdornment>
           }
-          inputProps={{}}
-        />
-
+            sx={{ ...theme.typography.customInput }}
+          />
+      </Grid>
       <Box sx={{ mt: 2 }}>
         <AnimateButton>
           <Button disableElevation fullWidth size="large" type="submit" variant="contained" color="secondary">

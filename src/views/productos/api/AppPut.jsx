@@ -32,103 +32,93 @@ const style = {
   borderRadius: '10px',
 };
 
-export default function AppPost({IDproducto}) {
-    // modal
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => {
-      setOpen(true)
-      getProductos()     
-    };
-    const handleClose = () => setOpen(false);
-    
+export default function AppPost({ IDproducto }) {
+  const [open, setOpen] = useState(false);
+  const [responseMessage, setResponseMessage] = useState("");
 
-    // Post request
-    const [nombre, setNombre] = useState("");
-    const [descripcion, setDescripcion] = useState("");
-    const [stock, setStock] = useState("");
-    const [precio, setPrecio] = useState("");
-    const [imagen, setImagen] = useState("");
-    const [responseMessage, setResponseMessage] = useState("");
+  const [formData, setFormData] = useState({
+    nombre: '',
+    descripcion: '',
+    stock: '',
+    precio: '',
+    imagen: null,
+  });
 
-    const [response, setResponse] = useState([])
-    const [producto, setProducto] = useState([])
+  const handleOpen = () => {
+    setOpen(true);
+    getProducto();
+  };
+  const handleClose = () => setOpen(false);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        let field = e.target
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-        const editedProduct = {
-            nombre: field.nombre.value,
-            descripcion: field.descripcion.value,
-            stock: field.stock.value,
-            precio: field.precio.value,
-            imagen: field.imagen.value,
-        };
+  const handleFileChange = (e) => {
+    setFormData((prev) => ({ ...prev, imagen: e.target.files[0] }));
+  };
 
-        // Make POST request to send data
-        axios.put(`${baseURL}/producto/${IDproducto}`, editedProduct)
-            .then((response) => {
-                setResponseMessage(<Alert severity="success">Producto Editado.</Alert>);
-            })
-            .catch((err) => {
-                setResponseMessage(<Alert severity="error">Hubo un error al editar el producto.</Alert>);
-            });
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const payload = new FormData();
 
-    const getOneProducto = ()=>{
-        return axios.get(`${baseURL}/producto/${IDproducto}`)
-    }   
-   
-    useEffect(()=>{
-         getProductos()
-    }, [producto]) 
-
-    const getProductos = ()=>{
-        const response =  getOneProducto()
-        response.then((res) =>{
-          setProducto(res.data.data)
-        })
+    for (let key in formData) {
+      if (formData[key] !== null) {
+        payload.append(key, formData[key]);
+      }
     }
-    
-    return (   
-    <div>
-    <Button onClick={handleOpen} variant='contained' size='small' sx={{borderRadius: '8px'}}>Editar</Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Stack
-            direction="row"
-            spacing={2}
-            sx={{
-              mb: 3,
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <MuiTypography variant="h4" component="h2">
-                Editar producto
-              </MuiTypography>
 
-              <IconButton aria-label="Close" onClick={handleClose}>
-                <CloseIcon />
-              </IconButton>
-          </Stack>              
-            <Form noValidate autoComplete='off' onSubmit={(e) => handleSubmit(e)}>
-               <EditForm
-                nombre={producto.nombre}
-                descripcion={producto.descripcion}
-                stock={producto.stock}
-                precio={producto.precio}
-               />
-            </Form>
-            {responseMessage && <p>{responseMessage}</p>}
+    try {
+      const response = await axios.post(
+        `${baseURL}/producto/${IDproducto}?_method=PUT`, // for Laravel PUT via POST
+        payload,
+        { headers: { 'Content-Type': 'multipart/form-data' } }
+      );
+      setResponseMessage(<Alert severity="success">Producto editado exitosamente</Alert>);
+    } catch (error) {
+      setResponseMessage(<Alert severity="error">Error al editar el producto</Alert>);
+    }
+  };
+
+  const getProducto = async () => {
+    try {
+      const response = await axios.get(`${baseURL}/producto/${IDproducto}`);
+      const producto = response.data.data;
+      setFormData({
+        nombre: producto.nombre || '',
+        descripcion: producto.descripcion || '',
+        stock: producto.stock || '',
+        precio: producto.precio || '',
+        imagen: null, // Don't prefill image
+      });
+    } catch (error) {
+      console.error("Error fetching producto:", error);
+    }
+  };
+
+  return (
+    <div>
+      <Button onClick={handleOpen} variant="contained" size="small" sx={{ borderRadius: '8px' }}>
+        Editar
+      </Button>
+      <Modal open={open} onClose={handleClose}>
+        <Box sx={style}>
+          <Stack direction="row" spacing={2} sx={{ mb: 3, justifyContent: 'space-between', alignItems: 'center' }}>
+            <MuiTypography variant="h4">Editar producto</MuiTypography>
+            <IconButton onClick={handleClose}><CloseIcon /></IconButton>
+          </Stack>
+          <Form onSubmit={handleSubmit} encType="multipart/form-data">
+            <EditForm
+              formData={formData}
+              handleChange={handleChange}
+              handleFileChange={handleFileChange}
+            />
+            <Button type="submit" variant="contained">Guardar</Button>
+          </Form>
+          {responseMessage && <Box mt={2}>{responseMessage}</Box>}
         </Box>
       </Modal>
     </div>
-
-    );
+  );
 };
