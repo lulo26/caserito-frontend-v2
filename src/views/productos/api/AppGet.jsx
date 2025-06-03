@@ -12,6 +12,7 @@ import AppPut from "./AppPut";
 import AppDelete from "./AppDelete";
 
 export default function AppGet() {
+    const imgURL = 'http://168.231.112.194:8098/storage/'
     const productoURL = baseURL + '/producto'
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -48,8 +49,8 @@ export default function AppGet() {
             <CardMedia
                 component="img"
                 alt={post.descripcion}
-                height="140"
-                image={post.imagen}
+                height="200"
+                image={`${imgURL}${post.imagen}`}
             />
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">

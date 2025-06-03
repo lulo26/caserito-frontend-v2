@@ -46,27 +46,22 @@ export default function AppPost() {
     const [imagen, setImagen] = useState("");
     const [responseMessage, setResponseMessage] = useState("");
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        let field = event.target
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-        const newProduct = {
-            nombre: field.nombre.value,
-            descripcion: field.descripcion.value,
-            stock: field.stock.value,
-            precio: field.precio.value,
-            imagen: field.imagen.value,
-        };
+        const formData = new FormData(e.target)
 
-        // Make POST request to send data
-        axios.post(productoURL, newProduct)
-            .then((response) => {
-                setResponseMessage(<Alert severity="success">Producto Agregado.</Alert>);
-            })
-            .catch((err) => {
-                setResponseMessage(<Alert severity="error">Hubo un error al agregar el producto.</Alert>);
-            });
-    };
+        try {
+      const response = await axios.post(productoURL, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      setResponseMessage('Producto agregado exitosamente');
+    } catch (error) {
+      setResponseMessage('Error al agregar producto');
+    }
+  };
 
     return (   
     <div>
@@ -95,7 +90,7 @@ export default function AppPost() {
                 <CloseIcon />
               </IconButton>
           </Stack>              
-            <Form noValidate autoComplete='off' onSubmit={(e) => handleSubmit(e)}>
+            <Form noValidate autoComplete='off' onSubmit={handleSubmit} >
                <ProductosForm/>
             </Form>
             {responseMessage && <p>{responseMessage}</p>}

@@ -1,7 +1,24 @@
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import {TextField, Button} from '@mui/material';
 
 export default function ProductosForm() {
+      const [formData, setFormData] = useState({
+    nombre: '',
+    descripcion: '',
+    stock: '',
+    precio: '',
+    imagen: null,
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleFileChange = (e) => {
+    setFormData((prev) => ({ ...prev, imagen: e.target.files[0] }));
+  };
   return (
         <>
          <div>
@@ -10,6 +27,8 @@ export default function ProductosForm() {
                         name='nombre'
                         label="Nombre"
                         type="text"
+                        value={formData.nombre}
+                        onChange={handleChange}
                         sx={{mb:3, mr:3, width:'100%'}}
                     />
                 </div>
@@ -18,6 +37,8 @@ export default function ProductosForm() {
                         required
                         name="descripcion"
                         label="Descripción"
+                        value={formData.descripcion}
+                        onChange={handleChange}
                         type="text"
                         sx={{mb:3, mr:3, width:'100%'}}
                         multiline
@@ -34,14 +55,20 @@ export default function ProductosForm() {
                         }}>
                         <TextField
                             required
+                            name='stock'
                             id="stock"
                             label="Cantidad"
+                            value={formData.stock}
+                            onChange={handleChange}
                             type="number"
                         />
                         <TextField
                             required
+                            name='precio'
                             id="precio"
                             label="Precio"
+                            value={formData.precio}
+                            onChange={handleChange}
                             type="number"
                         />
                     </Box>
@@ -49,9 +76,10 @@ export default function ProductosForm() {
                 <div>
                     <TextField
                         id="imagen"
+                        name='imagen'
                         label="Imagen"
                         type="file"
-                        autoComplete="current-password"
+                        onChange={handleFileChange}
                         sx={{mb:3, mr:3, width:'100%'}}
                         slotProps={{
                             input:{
