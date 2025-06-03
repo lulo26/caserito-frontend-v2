@@ -19,7 +19,7 @@ import Transitions from 'ui-component/extended/Transitions';
 import useConfig from 'hooks/useConfig';
 
 // assets
-import User1 from 'assets/images/users/user-round.svg';
+import User1 from 'assets/images/users/profile.jpg';
 import { IconInfoCircle } from '@tabler/icons-react';
 
 import LogoutDialogue from './LogoutDialogue';
@@ -120,7 +120,7 @@ export default function ProfileSection() {
                         <Stack direction="row" spacing={0.5} sx={{ alignItems: 'center' }}>
                           <Typography variant="h4">Hola,</Typography>
                           <Typography component="span" variant="h4" sx={{ fontWeight: 400 }}>
-                            Johne Doe
+                            Usuario
                           </Typography>
                         </Stack>
                         <Typography variant="subtitle2">Administrador</Typography>

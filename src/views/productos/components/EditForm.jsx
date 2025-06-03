@@ -1,30 +1,35 @@
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import {TextField, Button} from '@mui/material';
 
-export default function EditForm({nombre, descripcion, stock, precio, imagen}) {
+export default function EditForm({ formData, handleChange, handleFileChange }) {
   return (
         <>
          <div>
                     <TextField
-                        required
-                        name='nombre'
-                        label='Nombre'
-                        defaultValue={nombre}
-                        type="text"
-                        sx={{mb:3, mr:3, width:'100%'}}
-                    />
+        required
+        name="nombre"
+        label="Nombre"
+        value={formData.nombre}
+        onChange={handleChange}
+        type="text"
+        fullWidth
+        sx={{ mb: 3 }}
+      />
                 </div>
                 <div>
                     <TextField
-                        required
-                        name="descripcion"
-                        label="Descripción"
-                        defaultValue={descripcion}
-                        type="text"
-                        sx={{mb:3, mr:3, width:'100%'}}
-                        multiline
-                        maxRows={3}
-                    />
+        required
+        name="descripcion"
+        label="Descripción"
+        value={formData.descripcion}
+        onChange={handleChange}
+        type="text"
+        fullWidth
+        multiline
+        maxRows={3}
+        sx={{ mb: 3 }}
+      />
                 </div>
                 <div style={{width: '100%'}}>
                     <Box 
@@ -36,16 +41,20 @@ export default function EditForm({nombre, descripcion, stock, precio, imagen}) {
                         }}>
                         <TextField
                             required
+                            name='stock'
                             id="stock"
                             label="Cantidad"
-                            defaultValue={stock}
+                            value={formData.stock}
+                            onChange={handleChange}
                             type="number"
                         />
                         <TextField
                             required
+                            name='precio'
                             id="precio"
                             label="Precio"
-                            defaultValue={precio}
+                            value={formData.precio}
+                            onChange={handleChange}
                             type="number"
                         />
                     </Box>
@@ -54,13 +63,15 @@ export default function EditForm({nombre, descripcion, stock, precio, imagen}) {
                     <TextField
                         id="imagen"
                         label="Imagen"
+                        name='imagen'
                         type="file"
                         autoComplete="current-password"
+                        onChange={handleFileChange}
                         sx={{mb:3, mr:3, width:'100%'}}
                         slotProps={{
                             input:{
                                 inputProps:{
-                                    accept:".png, .jpeg, .webp"
+                                    accept:".png, .jpeg, .webp, .jpg"
                                 }
                             },
                             inputLabel: {
@@ -69,7 +80,6 @@ export default function EditForm({nombre, descripcion, stock, precio, imagen}) {
                         }}
                     />
                 </div>
-                <Button key='buttonSubmit' variant='contained' type='submit' sx={{borderRadius: '8px'}}>Guardar</Button>
         </>
   );
 }

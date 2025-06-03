@@ -5,6 +5,8 @@ import MuiTypography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 
+import { useNavigate } from "react-router";
+
 import UsersForm from "./UsersForm";
 import { baseURL } from "../../../store/constant";
 
@@ -22,6 +24,7 @@ const style = {
 };
 
 export default function UsersModal() {
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -45,10 +48,12 @@ export default function UsersModal() {
           axios.post(`${baseURL}/user`, newUser)
               .then((response) => {
                   setResponseMessage(<Alert severity="success">Usuario Agregado.</Alert>);
+                  navigate(0)
               })
               .catch((err) => {
                   setResponseMessage(<Alert severity="error">Hubo un error al agregar el usuario.</Alert>);
               });
+              
       };
 
   return (

@@ -84,7 +84,7 @@ export default function ProductosForm() {
                         slotProps={{
                             input:{
                                 inputProps:{
-                                    accept:".png, .jpeg, .webp"
+                                    accept:".png, .jpeg, .webp, .jpg"
                                 }
                             },
                             inputLabel: {
