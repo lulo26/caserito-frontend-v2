@@ -6,6 +6,7 @@ import Loading from "../../productos/components/Loading";
 import axios from "axios";
 import { Button } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info"
+import DownloadIcon from "@mui/icons-material/Download"
 
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
@@ -14,7 +15,13 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
+
+import { jsPDF } from 'jspdf'
+import { autoTable } from 'jspdf-autotable';
+
+
 export default function VentasTable() {
+
   const [ventaProductos, setVentaProductos] = useState([])
   const [ventaId, setVentaId] = useState(null)
   const [total, setTotal] = useState(null)
@@ -107,8 +114,36 @@ export default function VentasTable() {
 /*   const rows = [
     data.data.map((post) =>(createData(post.id, post.total, post.recibido, post.created_at)) )
   ]; */
+
+  const downloadPdf = () => {
+  const doc = new jsPDF();
+
+  doc.text("Informe de ventas", 20, 20);
+
+  // Format headers for autoTable
+  const tableColumn = columns
+    .filter(col => col.field !== 'actions') // Remove 'actions' column
+    .map(col => col.headerName);
+
+  // Format rows
+  const tableRows = tableData.map((row) =>
+    columns
+      .filter(col => col.field !== 'actions') // Same here
+      .map(col => row[col.field])
+  );
+
+  autoTable(doc, {
+    startY: 30,
+    head: [tableColumn],
+    body: tableRows,
+  });
+
+  doc.save('informe_ventas.pdf');
+};
+
   return (<>
       <div style={{ height: '100%', width: '100%' }}>
+        <Button sx={{mb:1}} endIcon={<DownloadIcon/>} variant="outlined" onClick={downloadPdf}>Descargar informe</Button>
       <DataGrid
         rows={tableData}
         columns={columns}

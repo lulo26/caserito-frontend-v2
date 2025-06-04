@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -24,9 +25,13 @@ import FileCopyTwoToneIcon from '@mui/icons-material/FileCopyOutlined';
 import PictureAsPdfTwoToneIcon from '@mui/icons-material/PictureAsPdfOutlined';
 import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveOutlined';
 
-export default function EarningCard({ isLoading }) {
-  const theme = useTheme();
+import axios from 'axios';
+import { baseURL } from '../../../store/constant';
 
+export default function TotalProductos({ isLoading }) {
+  let ventas;
+  const theme = useTheme();
+  const [ventasTotal, setVentasTotal] = useState()
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -36,6 +41,27 @@ export default function EarningCard({ isLoading }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(()=>{
+    try {
+      axios.get(`${baseURL}/items`)
+      .then((response)=>{
+        ventas = (response.data.data)
+        let totalSuma = 0
+      for (let i = 0; i < ventas.length; i++) {
+        totalSuma += parseInt(ventas[i].cantidad)
+        
+      }
+      setVentasTotal(totalSuma)
+      }) 
+    }
+      catch (error) {
+        console.log(`error ${error}`);
+      }
+      
+  },[])
+
+  
 
   return (
     <>
@@ -47,7 +73,7 @@ export default function EarningCard({ isLoading }) {
           content={false}
           aria-hidden={Boolean(anchorEl)}
           sx={{
-            bgcolor: 'secondary.dark',
+            bgcolor: 'primary.dark',
             color: '#fff',
             overflow: 'hidden',
             position: 'relative',
@@ -56,7 +82,7 @@ export default function EarningCard({ isLoading }) {
               position: 'absolute',
               width: 210,
               height: 210,
-              background: theme.palette.secondary[800],
+              background: theme.palette.primary[800],
               borderRadius: '50%',
               top: { xs: -85 },
               right: { xs: -95 }
@@ -66,7 +92,7 @@ export default function EarningCard({ isLoading }) {
               position: 'absolute',
               width: 210,
               height: 210,
-              background: theme.palette.secondary[800],
+              background: theme.palette.primary[800],
               borderRadius: '50%',
               top: { xs: -125 },
               right: { xs: -15 },
@@ -84,7 +110,7 @@ export default function EarningCard({ isLoading }) {
                       sx={{
                         ...theme.typography.commonAvatar,
                         ...theme.typography.largeAvatar,
-                        bgcolor: 'secondary.800',
+                        bgcolor: 'primary.800',
                         mt: 1
                       }}
                     >
@@ -96,15 +122,15 @@ export default function EarningCard({ isLoading }) {
               <Grid>
                 <Grid container sx={{ alignItems: 'center' }}>
                   <Grid>
-                    <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>$500.00</Typography>
+                    <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>${ventasTotal}</Typography>
                   </Grid>
                   <Grid>
                     <Avatar
                       sx={{
                         cursor: 'pointer',
                         ...theme.typography.smallAvatar,
-                        bgcolor: 'secondary.200',
-                        color: 'secondary.dark'
+                        bgcolor: 'primary.main',
+                        color: 'primary.dark'
                       }}
                     >
                       <ArrowUpwardIcon fontSize="inherit" sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }} />
@@ -117,10 +143,10 @@ export default function EarningCard({ isLoading }) {
                   sx={{
                     fontSize: '1rem',
                     fontWeight: 500,
-                    color: 'secondary.200'
+                    color: 'orange.200'
                   }}
                 >
-                  Total Vendido
+                  Cantidad de productos vendidos
                 </Typography>
               </Grid>
             </Grid>
@@ -131,4 +157,4 @@ export default function EarningCard({ isLoading }) {
   );
 }
 
-EarningCard.propTypes = { isLoading: PropTypes.bool };
+TotalProductos.propTypes = { isLoading: PropTypes.bool };
