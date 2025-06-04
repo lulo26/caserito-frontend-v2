@@ -9,6 +9,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Box from '@mui/material/Box';
+import { Alert } from '@mui/material'; 
 
 // project imports
 import AnimateButton from 'ui-component/extended/AnimateButton';
@@ -26,6 +27,7 @@ import { useNavigate } from 'react-router';
 // ===============================|| JWT - LOGIN ||=============================== //
 
 export default function AuthLogin() {
+  const [responseMessage, setResponseMessage] = useState("");
   const theme = useTheme();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -51,6 +53,7 @@ export default function AuthLogin() {
     }
 
     const handleSubmitClick = (e)=>{
+      
       e.preventDefault()
       const payload = {
         'email': state.email,
@@ -69,14 +72,15 @@ export default function AuthLogin() {
           
         }
         else if(response.code === 204){
-                    props.showError("El correo y la contraseña no coinciden");
+                    setResponseMessage(<Alert severity="error">El correo y la contraseña no coinciden</Alert>);
                 }
                 else{
-                    props.showError("El correo no está registrado");
+                    setResponseMessage(<Alert severity="error">El correo no está registrado</Alert>);
                 }
             })
         .catch(function (error) {
                 console.log(error);
+                setResponseMessage(<Alert severity="error">Error al iniciar sesión</Alert>);
             
       })
     }
@@ -131,6 +135,7 @@ export default function AuthLogin() {
             Iniciar
           </Button>
         </AnimateButton>
+        {responseMessage && <p>{responseMessage}</p>}
       </Box>
       </form>
     </>

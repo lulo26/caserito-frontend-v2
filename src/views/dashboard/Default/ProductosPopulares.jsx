@@ -15,7 +15,7 @@ import chartData from './chart-data/bajaj-area-chart';
 
 // ===========================|| DASHBOARD DEFAULT - BAJAJ AREA CHART CARD ||=========================== //
 
-export default function BajajAreaChartCard() {
+export default function ProductosPopulares() {
   const theme = useTheme();
 
   const orangeDark = theme.palette.secondary[800];

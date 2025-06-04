@@ -6,11 +6,9 @@ import Grid from '@mui/material/Grid2';
 // project imports
 import TotalVendido from './TotalVendido';
 import TotalProductos from './TotalProductos';
+import TotalGanancias from './TotalGanancias';
 
 import { gridSpacing } from 'store/constant';
-
-// assets
-import StorefrontTwoToneIcon from '@mui/icons-material/StorefrontTwoTone';
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
@@ -34,7 +32,7 @@ export default function Dashboard() {
         </Grid>
       </Grid>
       <Grid size={12}>
-        {/* <TotalIncomeDarkCard/> */}
+       <TotalGanancias/> 
       </Grid>
     </Grid>
   );

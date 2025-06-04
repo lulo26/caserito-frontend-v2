@@ -120,6 +120,7 @@ export default function AuthRegister() {
             Registrarse
           </Button>
         </AnimateButton>
+        {responseMessage && <p>{responseMessage}</p>}
       </Box>
       </form>
     </>
