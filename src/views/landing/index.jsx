@@ -63,8 +63,14 @@ const imgURL = 'http://168.231.112.194:8098/storage/'
             }); */
             axios({
                 method: 'get',
-                url: productoURL,
-                responseType: 'json'
+                url: '/producto',
+                baseURL: baseURL,
+                responseType: 'json',
+                proxy: {
+                    protocol: 'http',
+                    host: '168.231.112.194',
+                    port: 8098,
+                },
             })
             .then((response) => {
                 setData(response.data);

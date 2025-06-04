@@ -1,7 +1,0 @@
-RewriteEngine On
-# This is an example of a redirect from HTTP to HTTPS,
-# you would remove this to redirect back to HTTP
-
-# Remove the following line to disable HTTPS
-RewriteCond %{HTTPS} !=on
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
