@@ -1,15 +1,15 @@
 import './assets/style.css'
 
 import Button from '@mui/material/Button';
-import { Link, Navigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 
 import React, { useEffect, useState } from "react";
-import { Grid2, Card, CardActions, CardContent, CardMedia, Stack, TextField } from "@mui/material";
+import { Grid2, Card, CardActions, CardContent, CardMedia, Stack, TextField,Alert } from "@mui/material";
 import { useParams } from 'react-router';
 import axios from "axios";
 import { Typography, Box } from '@mui/material';
-import Divider from '@mui/material/Divider';
+import Rating from '@mui/material/Rating';
 import CircularProgress from '@mui/material/CircularProgress';
 import { frontUrl, baseURL } from '../../store/constant';
 
@@ -20,11 +20,14 @@ export default function Producto() {
     const [data, setData] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [ratingValue, setRatingValue] = useState(2);
+    const [responseMessage, setResponseMessage] = useState("");
+    const navigate = useNavigate();
 
 
     const params = useParams()
     const productoURL =  `${baseURL}/producto/${params.id}`
-    const imgURL = `${baseURL}/storage/`
+    const imgURL = `https://168.231.112.194:8098/storage/`
 
         useEffect(() => {
         // Make GET request to fetch data
@@ -46,10 +49,10 @@ export default function Producto() {
         window.location.replace(frontUrl)
     }
 
-    const updateOne = (id, payload) => {
+    const setReview = (id, payload) => {
         return axios({
-            method: 'put',
-            url: `${baseURL}/${id}`,
+            method: 'post',
+            url: `${baseURL}/review`,
             data: payload,
             responseType: 'json'
         })
@@ -57,25 +60,28 @@ export default function Producto() {
 
     const setSubmit = (e) => {
         e.preventDefault()
+        let fields = e.target
 
         const payload = {
-          nombre: fields.nombre.value,
-          comentario:fields.nombre.value, //cambiar
+            producto_id: params.id,
+            nombre: fields.nombre.value,
+            comentario:fields.comentario.value,
+            puntuacion: ratingValue
         }
 
-        const response = updateOne(params.id, payload)
+        const response = setReview(params.id, payload)
         response
         .then((res) => {
-            console.log(res)
+            console.log(res.data)
             res.data.status ? (
-                console.log('fino')
+                setResponseMessage(<Alert severity="success">Reseña agregada</Alert>),
+                navigate(-1)
             ) : (
-                console.log('nada pa')
+                setResponseMessage(<Alert severity="error">No se pudo agregar la reseña</Alert>)
             )
         })
         .catch((err) =>{
-            notifications.show('Error de conexión: ' + err.message, 
-            {severity: 'error',autoHideDuration: 3000,})
+            setResponseMessage(<Alert severity="error">Error al agregar la reseña</Alert>)
         })
     }
 
@@ -108,23 +114,38 @@ export default function Producto() {
             </CardContent>
             <CardActions>
                 <form action="" onSubmit={setSubmit}>
-
+                <Box sx={{
+                    justifyContent:'center',
+                    alignItems:'center',
+                    alignContent:'center',
+                    justifyItems:'center',
+                    textAlign:'center'
+                }}>                    
+                    <Stack spacing={2} sx={{alignSelf:'center'}}>
+                        <Rating
+                        name="review"
+                        value={ratingValue}
+                        onChange={(e, newValue) => {
+                            setRatingValue(newValue);
+                        }}
+                        />
+                        <TextField
+                            required
+                            name='nombre'
+                            label="Nombre"
+                            type="text"
+                        />
+                        <TextField
+                            required
+                            name='comentario'
+                            label="Comentario"
+                            type="text"
+                        />
+                        <Button type="submit" variant='contained' size="small" color='primary' sx={{borderRadius: '8px', color:'#fff'}}>Dejar Reseña</Button>
+                        {responseMessage && <p>{responseMessage}</p>}
+                    </Stack>
+                </Box>
                 </form>
-                <Stack spacing={2}>
-                    <TextField
-                        required
-                        name='nombre'
-                        label="Nombre"
-                        type="text"
-                    />
-                    <TextField
-                        required
-                        name='comentario'
-                        label="Comentario"
-                        type="text"
-                    />
-                <Button variant='contained' size="small" color='primary' sx={{borderRadius: '8px', color:'#fff'}}>Dejar Reseña</Button>
-                </Stack>
             </CardActions>
             </Card>
         </Stack>
