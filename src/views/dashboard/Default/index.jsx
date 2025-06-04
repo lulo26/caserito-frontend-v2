@@ -4,9 +4,8 @@ import { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid2';
 
 // project imports
-import EarningCard from './EarningCard';
-import TotalIncomeDarkCard from '../../../ui-component/cards/TotalIncomeDarkCard';
-import TotalIncomeLightCard from '../../../ui-component/cards/TotalIncomeLightCard';
+import TotalVendido from './TotalVendido';
+import TotalProductos from './TotalProductos';
 
 import { gridSpacing } from 'store/constant';
 
@@ -27,10 +26,10 @@ export default function Dashboard() {
       <Grid size={12}>
         <Grid container spacing={gridSpacing}>
           <Grid size={{ lg: 6, md: 6, sm: 6, xs: 12 }}>
-            <EarningCard isLoading={isLoading} />
+            <TotalVendido isLoading={isLoading} />
           </Grid>
           <Grid size={{ lg: 6, md: 6, sm: 6, xs: 12 }}>
-            <EarningCard isLoading={isLoading} />
+            <TotalProductos isLoading={isLoading} />
           </Grid>
         </Grid>
       </Grid>
