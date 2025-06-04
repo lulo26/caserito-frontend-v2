@@ -23,8 +23,8 @@ export default function Producto() {
 
 
     const params = useParams()
-    const productoURL =  `http://168.231.112.194:8098/api/producto/${params.id}`
-    const imgURL = 'http://168.231.112.194:8098/storage/'
+    const productoURL =  `${baseURL}/producto/${params.id}`
+    const imgURL = `${baseURL}/storage/`
 
         useEffect(() => {
         // Make GET request to fetch data

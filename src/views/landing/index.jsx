@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import { Link, useNavigate } from 'react-router';
 
 
-
+import CircularProgress from '@mui/material/CircularProgress';
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -52,7 +52,26 @@ const imgURL = 'http://168.231.112.194:8098/storage/'
 
     useEffect(() => {
         // Make GET request to fetch data
-        axios.get(productoURL)
+/*         axios.get(productoURL)
+            .then((response) => {
+                setData(response.data);
+                setLoading(false);
+            })
+            .catch((err) => {
+                setError(err.message);
+                setLoading(false);
+            }); */
+            axios({
+                method: 'get',
+                url: '/producto',
+                baseURL: baseURL,
+                responseType: 'json',
+                proxy: {
+                    protocol: 'http',
+                    host: '168.231.112.194',
+                    port: 8098,
+                },
+            })
             .then((response) => {
                 setData(response.data);
                 setLoading(false);
@@ -84,7 +103,7 @@ const imgURL = 'http://168.231.112.194:8098/storage/'
         console.log(test);
         return test;
     }
-    if (loading) return (<> cargando</>);
+    if (loading) return (<> <CircularProgress color="primary" /></>);
     if (error) return <div>Error: {error}</div>;
 
   return (
