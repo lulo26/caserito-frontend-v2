@@ -90,8 +90,12 @@ export default function Producto() {
 
   return (
 <>
-    <Box sx={{margin:'2vh', justifyItems:'center'}}>
-        <Stack spacing={2}>
+    <Box sx={{ minHeight: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '2vh',}}>
+        <Stack spacing={2} sx={{ width: '100%', maxWidth: 900 }}>
             <Stack direction='row'>
                 <Button onClick={(e) => goHome()} variant='contained' size="small" color='primary' sx={{borderRadius: '8px', color:'#fff'}}>Volver</Button>
             </Stack>
@@ -99,13 +103,19 @@ export default function Producto() {
             <CardMedia
                 component="img"
                 height="300"
+                maxWidth='300'
                 image={`${imgURL}${data.imagen}`}
             />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+            <CardContent sx={{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    textAlign: 'center'
+  }}>
+                <Typography gutterBottom variant="h3" component="div">
                 {data.nombre}
                 </Typography>
-                <Typography variant='h3'>
+                <Typography variant='h5'>
                     {data.descripcion}
                 </Typography>
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
@@ -113,15 +123,23 @@ export default function Producto() {
                 </Typography>
             </CardContent>
             <CardActions>
-                <form action="" onSubmit={setSubmit}>
+                <form action="" onSubmit={setSubmit} style={{width:'100%'}}>
                 <Box sx={{
+                     width: '100%',
                     justifyContent:'center',
                     alignItems:'center',
                     alignContent:'center',
                     justifyItems:'center',
                     textAlign:'center'
                 }}>                    
-                    <Stack spacing={2} sx={{alignSelf:'center'}}>
+                    <Stack spacing={2}
+      sx={{
+        width: '100%',
+        padding: 2,
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center'
+      }}>
                         <Rating
                         name="review"
                         value={ratingValue}
@@ -134,12 +152,14 @@ export default function Producto() {
                             name='nombre'
                             label="Nombre"
                             type="text"
+                            fullWidth
                         />
                         <TextField
                             required
                             name='comentario'
                             label="Comentario"
                             type="text"
+                            fullWidth
                         />
                         <Button type="submit" variant='contained' size="small" color='primary' sx={{borderRadius: '8px', color:'#fff'}}>Dejar Reseña</Button>
                         {responseMessage && <p>{responseMessage}</p>}
