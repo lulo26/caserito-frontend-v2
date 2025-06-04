@@ -4,191 +4,121 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { baseURL } from '../../../store/constant.js';
 import axios from 'axios';
 
-export default function VentasForm() {
-  const [inputFields, setInputFields] = React.useState([{
-      producto_id: '',
-      cantidad: '',
-      totalProducto: ''
-    }])
-  const [producto_id, setProducto_id] = React.useState([''])
-  const [total, setTotal] = React.useState(0)
-  const [cambio, setCambio] = React.useState(0)
-  const [recibido, setRecibido] = React.useState(0)
-  const [venta_id, setVenta_id] = React.useState('')
+export default function VentasForm({ inputFields, setInputFields, total, setTotal, recibido, setRecibido, cambio, setCambio, productoList }) {
 
   const handleFormChange = (index, e)=>{
-    e.preventDefault()
-    let data = [...inputFields]
-    data[index][e.target.name] = e.target.value
-    setInputFields(data)
-    getTotal()
-  }
+    let data = [...inputFields];
+    data[index][e.target.name] = e.target.value;
+    setInputFields(data);
+    getTotal(data);
+  };
 
   const addFields = ()=>{
-    let newField = {
-      producto_id: '', 
-      cantidad: '',
-      totalProducto: ''
-    }
-    setInputFields([...inputFields, newField])
-  }
+    setInputFields([...inputFields, { producto_id: '', cantidad: '', totalProducto: '' }]);
+  };
 
   const removeFields = (index)=>{
-    let data = [...inputFields]
-    data.splice(index, 1)
-    setInputFields(data)
-  }
+    let data = [...inputFields];
+    data.splice(index, 1);
+    setInputFields(data);
+  };
 
-  const handleRecibidoChange = (e)=>{
-    e.preventDefault()
-    setRecibido(e.target.value)
-    console.log(`recibido: ${recibido}`);
-  }
-
-  const getTotal = ()=>{
-    let totalSum = 0
-    let updateFields = [...inputFields]
-    for (let i = 0; i < inputFields.length; i++) {
-      if (!isNaN(parseInt(inputFields[i].cantidad)) && inputFields[i].producto_id) {
-        const selectedProduct = producto_id.find(p => p.id === parseInt(inputFields[i].producto_id)) 
-        if (selectedProduct){
-          const totalProductoSum = selectedProduct.precio * parseInt(inputFields[i].cantidad) 
-        totalSum += totalProductoSum 
-        updateFields[i] = {...updateFields[i], totalProducto: totalProductoSum}
-        }
+  const getTotal = (fields) => {
+    let totalSum = 0;
+    const updatedFields = fields.map((field, i) => {
+      const selectedProduct = productoList.find(p => p.id === parseInt(field.producto_id));
+      const cantidad = parseInt(field.cantidad);
+      if (selectedProduct && !isNaN(cantidad)) {
+        const totalProducto = selectedProduct.precio * cantidad;
+        totalSum += totalProducto;
+        return { ...field, totalProducto };
       }
-      console.log(`total producto suma: ${inputFields[i].totalProducto}`);
-    }
-    if (isNaN(totalSum)){
-      totalSum = 0
-    }
-
-    setInputFields(updateFields)
-    setTotal(totalSum)
-  
-  
-  }
-
-  const getCambio = ()=>{
-    let cambioSum = 0
-    if (recibido > total){
-      cambioSum = recibido - total
-    }
-    setCambio(cambioSum)
-  }
+      return { ...field, totalProducto: '' };
+    });
+    setInputFields(updatedFields);
+    setTotal(totalSum);
+  };
 
   React.useEffect(()=>{
-    getAllProductos();
-  },[producto_id])
-  
-  React.useEffect(()=>{
-    getCambio()
-  },[recibido, total])
-
-  const getAllProductos = () =>{
-    const response = axios.get(`${baseURL}/producto`)
-    response.then((res)=>{
-      setProducto_id(res.data.data)
-    })
-  }
+    const cambioCalc = recibido - total;
+    setCambio(cambioCalc > 0 ? cambioCalc : 0);
+  }, [recibido, total]);
 
   return (
     <>
-    <TextField
-          name='venta_id'
-          label="id"
-          value={venta_id}
-          type='number'
-          hidden
-          required
-          sx={{display:'none'}}
-        />
-    <label>Productos</label>
-      <div style={{width: '100%'}}>
-        {inputFields.map((input, index)=>{
-        return(
+      {inputFields.map((input, index) => (
         <Stack key={index} direction="row" spacing={1} mb={1} mt={2}>
-
-        <Select
-          name="producto_id"
-          value={input.producto_id}
-          onChange={e => handleFormChange(index, e)}
-          displayEmpty
-          sx={{width:'90%'}}
-        >
-          <MenuItem disabled value="">
-            <em>Seleccione el producto</em>
-          </MenuItem>
-          {producto_id.map((producto)=>(
-            <MenuItem key={producto.id} value={producto.id}>
-              {producto.nombre} - ${producto.precio}
+          <Select
+            name="producto_id"
+            value={input.producto_id}
+            onChange={e => handleFormChange(index, e)}
+            displayEmpty
+            sx={{ width: '90%' }}
+          >
+            <MenuItem disabled value="">
+              <em>Seleccione el producto</em>
             </MenuItem>
-          ))}
-        </Select>
-        <TextField
-          name="cantidad"
-          label="Cantidad"
-          type='number'
-          value={input.cantidad}
-          onChange={e => handleFormChange(index, e)}
-          required
-        />
-        <TextField
-          name="totalProducto"
-          label="total"
-          type='text'
-          value={input.totalProducto}
-          onChange={e => handleFormChange(index, e)}
-          required
-          disabled
-        />
-          <IconButton onClick={()=>removeFields(index)} aria-label="delete">
+            {productoList.map(producto => (
+              <MenuItem key={producto.id} value={producto.id}>
+                {producto.nombre} - ${producto.precio} - cant: {producto.stock}
+              </MenuItem>
+            ))}
+          </Select>
+          <TextField
+            name="cantidad"
+            label="Cantidad"
+            type='number'
+            value={input.cantidad}
+            onChange={e => handleFormChange(index, e)}
+            required
+          />
+          <TextField
+            name="totalProducto"
+            label="Total"
+            type="text"
+            value={input.totalProducto}
+            disabled
+          />
+          <IconButton onClick={() => removeFields(index)} aria-label="delete">
             <DeleteIcon />
           </IconButton>
         </Stack>
-            )
-          })}
-        
-        <Button onClick={addFields} variant="outlined" sx={{mb:3, borderRadius:3, mt:1}}>Agregar productos</Button>
-           
-        <TextField
-          label="Recibido"
-          name='recibido'
-          type="number"
-          value={recibido}
-          onChange={e =>handleRecibidoChange(e)}
-          required
-          sx={{mb:3, mr:3, width:'100%'}}
-        />
-        <TextField
-          label="Total"
-          name='total'
-          type="text"
-          disabled
-          value={total}
-          slotProps={{
-            inputLabel: {
-              shrink: true,
-            },
-          }}
-          sx={{mb:3, mr:3, width:'100%'}}
-        />
-        
-        <TextField
-          label="Cambio"
-          name='cambio'
-          type="text"
-          disabled
-          value={cambio}
-          slotProps={{
-            inputLabel: {
-              shrink: true,
-            },
-          }}
-          sx={{mb:3, mr:3, width:'100%'}}
-        />
-        </div>
-        <Button key='buttonSubmit' variant='contained' type='submit' sx={{borderRadius: '8px'}}>Agregar</Button>
+      ))}
+
+      <Button onClick={addFields} variant="outlined" sx={{ mb: 3, borderRadius: 3, mt: 1 }}>
+        Agregar productos
+      </Button>
+
+      <TextField
+        label="Recibido"
+        name='recibido'
+        type="number"
+        value={recibido}
+        onChange={e => setRecibido(parseFloat(e.target.value))}
+        required
+        fullWidth
+        sx={{ mb: 2 }}
+      />
+
+      <TextField
+        label="Total"
+        name='total'
+        type="text"
+        disabled
+        value={total}
+        fullWidth
+        sx={{ mb: 2 }}
+      />
+
+      <TextField
+        label="Cambio"
+        name='cambio'
+        type="text"
+        disabled
+        value={cambio}
+        fullWidth
+        sx={{ mb: 2 }}
+      />
     </>
   );
 }
