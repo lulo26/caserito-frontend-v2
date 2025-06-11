@@ -6,13 +6,13 @@ import { Grid2, Card, Box, CardActions, CardContent, CardMedia } from "@mui/mate
 import Typography from '@mui/material/Typography';
 
 import Loader from "../../../ui-component/Loader";
-import { baseURL } from "../../../store/constant";
+import { baseURL, imageURL } from "../../../store/constant";
 
 import AppPut from "./AppPut";
 import AppDelete from "./AppDelete";
 
 export default function AppGet() {
-    const imgURL = 'http://168.231.112.194:8098/storage/'
+    const imgURL = `${imageURL}/storage/`
     const productoURL = baseURL + '/producto'
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);

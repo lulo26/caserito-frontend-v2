@@ -14,7 +14,7 @@ import axios from "axios";
 import { Grid2, Card, Box, CardActions, CardContent, CardMedia, Stack } from "@mui/material";
 import Typography from '@mui/material/Typography';
 
-import { ACCESS_TOKEN_NAME, baseURL } from '../../store/constant';
+import { ACCESS_TOKEN_NAME, baseURL, imageURL } from '../../store/constant';
 import f1 from './assets/img/f1.png'
 import f2 from './assets/img/f2.png'
 import f3 from './assets/img/f3.png'
@@ -50,8 +50,8 @@ export default function Landing() {
 };
 
 
-const productoURL =  'http://168.231.112.194:8098/api/producto'
-const imgURL = 'http://168.231.112.194:8098/storage/'
+const productoURL = `${baseURL}/producto`
+const imgURL = imageURL
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
