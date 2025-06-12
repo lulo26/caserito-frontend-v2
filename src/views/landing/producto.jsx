@@ -11,7 +11,7 @@ import axios from "axios";
 import { Typography, Box } from '@mui/material';
 import Rating from '@mui/material/Rating';
 import CircularProgress from '@mui/material/CircularProgress';
-import { frontUrl, baseURL } from '../../store/constant';
+import { frontUrl, baseURL, imageURL } from '../../store/constant';
 
 
 export default function Producto() {
@@ -27,7 +27,7 @@ export default function Producto() {
 
     const params = useParams()
     const productoURL =  `${baseURL}/producto/${params.id}`
-    const imgURL = `https://168.231.112.194:8098/storage/`
+    const imgURL = `${imageURL}/storage/`
 
         useEffect(() => {
         // Make GET request to fetch data

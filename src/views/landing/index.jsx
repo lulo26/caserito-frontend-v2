@@ -51,7 +51,7 @@ export default function Landing() {
 
 
 const productoURL = `${baseURL}/producto`
-const imgURL = imageURL
+const imgURL = `${imageURL}/storage/`
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
