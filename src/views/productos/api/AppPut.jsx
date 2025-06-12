@@ -9,7 +9,10 @@ import {
   Modal, 
   Button, 
   Box,
-  Alert 
+  Alert,
+  Dialog,
+  DialogTitle,
+  DialogContent
 } from '@mui/material';
 
 import MuiTypography from '@mui/material/Typography' 
@@ -105,12 +108,12 @@ export default function AppPost({ IDproducto }) {
       <Button onClick={handleOpen} variant="contained" size="small" sx={{ borderRadius: '8px' }}>
         Editar
       </Button>
-      <Modal open={open} onClose={handleClose}>
-        <Box sx={style}>
+      <Dialog open={open} onClose={handleClose}>
           <Stack direction="row" spacing={2} sx={{ mb: 3, justifyContent: 'space-between', alignItems: 'center' }}>
-            <MuiTypography variant="h4">Editar producto</MuiTypography>
+            <DialogTitle>Editar producto</DialogTitle>
             <IconButton onClick={handleClose}><CloseIcon /></IconButton>
           </Stack>
+          <DialogContent>
           <Form onSubmit={handleSubmit} encType="multipart/form-data">
             <EditForm
               formData={formData}
@@ -120,8 +123,8 @@ export default function AppPost({ IDproducto }) {
             <Button type="submit" variant="contained">Guardar</Button>
           </Form>
           {responseMessage && <Box mt={2}>{responseMessage}</Box>}
-        </Box>
-      </Modal>
+          </DialogContent>
+      </Dialog>
     </div>
   );
 };

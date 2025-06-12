@@ -9,7 +9,10 @@ import {
   Modal, 
   Button, 
   Box,
-  Alert 
+  Alert,
+  Dialog,
+  DialogTitle,
+  DialogContent
 } from '@mui/material';
 
 import MuiTypography from '@mui/material/Typography' 
@@ -67,13 +70,10 @@ export default function AppPost() {
     return (   
     <div>
     <Button onClick={handleOpen} variant='contained' sx={{borderRadius: '8px'}}>Crear nuevo</Button>
-      <Modal
+      <Dialog
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
           <Stack
             direction="row"
             spacing={2}
@@ -83,20 +83,21 @@ export default function AppPost() {
               alignItems: 'center',
             }}
           >
-            <MuiTypography variant="h4" component="h2">
+            <DialogTitle>
                 Agregar un nuevo producto
-              </MuiTypography>
+              </DialogTitle>
 
               <IconButton aria-label="Close" onClick={handleClose}>
                 <CloseIcon />
               </IconButton>
-          </Stack>              
+          </Stack>   
+          <DialogContent>           
             <Form noValidate autoComplete='off' onSubmit={handleSubmit} >
                <ProductosForm/>
             </Form>
             {responseMessage && <p>{responseMessage}</p>}
-        </Box>
-      </Modal>
+            </DialogContent>
+      </Dialog>
     </div>
 
     );
