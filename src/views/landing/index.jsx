@@ -5,7 +5,7 @@ import 'react-multi-carousel/lib/styles.css';
 import Button from '@mui/material/Button';
 import { Link, useNavigate } from 'react-router';
 
-import { Parallax, Background } from 'react-parallax';
+import { Parallax } from 'react-parallax';
 
 import CircularProgress from '@mui/material/CircularProgress';
 import React, { useEffect, useState } from "react";
@@ -27,6 +27,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import IconButton from '@mui/material/IconButton';
+import EmailIcon from '@mui/icons-material/Email';
 
 export default function Landing() {
 
@@ -202,9 +203,10 @@ const imgURL = `${imageURL}/storage/`
 <Parallax blur={{min:0,max:15}} bgImage={bg6} bgImageAlt="the cat" strength={300}>
     <div class="container contacto">
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={5}>
-            <IconButton><FacebookIcon  sx={{fontSize:100}} /></IconButton>
-            <IconButton><InstagramIcon sx={{fontSize:100}}  /></IconButton>
-            <IconButton><WhatsAppIcon  sx={{fontSize:100}} /></IconButton>
+            <IconButton href="https://www.facebook.com/share/16WhPt96Yn/" ><FacebookIcon  sx={{fontSize:100}} /></IconButton>
+            <IconButton href="https://www.instagram.com/caseritopostres_reposteriaart?igsh=ZmxyanI3cWtnYWc4" ><InstagramIcon sx={{fontSize:100}}  /></IconButton>
+            <IconButton href="http://wa.me/573185438314" ><WhatsAppIcon  sx={{fontSize:100}} /></IconButton>
+            <IconButton href="mailto:caseritopostres2025@gmail.com" ><EmailIcon  sx={{fontSize:100}} /></IconButton>
         </Stack>
         <br />
         <Box sx={{
@@ -214,8 +216,8 @@ const imgURL = `${imageURL}/storage/`
             backgroundColor: 'rgba(255, 255, 255, 0.5)',
             color:'#fff'
         }}>
-            <Typography variant='h2'>Telefono de contacto:<br/> +57 000 000 000</Typography>
-            <Typography variant='h2'>Estamos ubicados en la carrera ejemplo con calle test</Typography>
+            <Typography variant='h2'>Telefono de contacto:<br/> +57 3185438314</Typography>
+            <Typography variant='h2'></Typography>
         </Box>
     </div>
 </Parallax>

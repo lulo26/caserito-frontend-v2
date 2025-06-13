@@ -16,7 +16,7 @@ const AuthenticationRoutes = {
   children: [
     {
       path: '/pages/login',
-      element: <LoginPage />
+      element: <LoginPage />,
     }
   ]
 };
