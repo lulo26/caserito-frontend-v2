@@ -163,6 +163,7 @@ h3 {
   align-items: center;
   justify-content: center;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, .3);
+  margin-top: 1rem;
 }
 
 .productos{
@@ -199,7 +200,7 @@ justify-content: center;
 }
 
 @media only screen and (min-width: 800px) {
- .logo-image{
+ .logo-image, .logoSmall{
   display: none;
  }
 }
@@ -207,7 +208,7 @@ justify-content: center;
  .bg-f3{
   display: none;
  }
- .logo-image{
+ .logo-image, .logoSmall{
   display: block;
  }
 }
