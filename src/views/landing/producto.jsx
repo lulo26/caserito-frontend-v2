@@ -30,12 +30,12 @@ export default function Producto() {
     const imgURL = `${imageURL}/storage/`
 
         useEffect(() => {
-        // Make GET request to fetch data
         axios.get(productoURL)
             .then((response) => {
-                console.log(response)
                 setData(response.data.data);
-                setProductoTitle(data.nombre)
+                setProductoTitle(response.data.data.nombre)
+                console.log(response.data.data.nombre);
+                
                 setLoading(false);
             })
             .catch((err) => {
@@ -64,21 +64,16 @@ export default function Producto() {
         let fields = e.target
 
         const payload = {
-            name: fields.nombre.value,
-            email: 'example@gmail.com',
-            message: `Producto: ${productoTitle}, puntuación: ${ratingValue}, comentario: ${fields.comentario.value}` 
+            nombre: fields.nombre.value,
+            mensaje: `Producto: ${productoTitle}, puntuación: ${ratingValue}, comentario: ${fields.comentario.value}` 
         }
 
         const response = setReview(payload)
         response
         .then((res) => {
             console.log(res.data)
-            res.data.status ? (
-                setResponseMessage(<Alert severity="success">Reseña agregada</Alert>),
-                navigate(-1)
-            ) : (
-                setResponseMessage(<Alert severity="error">No se pudo agregar la reseña</Alert>)
-            )
+            setResponseMessage(<Alert severity="success">Reseña agregada</Alert>),
+            navigate(-1)
         })
         .catch((err) =>{
             setResponseMessage(<Alert severity="error">Error al agregar la reseña</Alert>)
