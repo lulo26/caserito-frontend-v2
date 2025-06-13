@@ -71,6 +71,9 @@ export default function VentasForm({ inputFields, setInputFields, total, setTota
             value={input.cantidad}
             onChange={e => handleFormChange(index, e)}
             required
+             inputProps={{
+              min: 0
+            }} 
           />
           <TextField
             name="totalProducto"
