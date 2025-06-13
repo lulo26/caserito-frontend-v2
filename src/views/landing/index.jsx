@@ -21,6 +21,7 @@ import f3 from './assets/img/f3.png'
 import bg4 from './assets/img/bg4.png'
 import bg5 from './assets/img/bg5.png'
 import bg6 from './assets/img/bg6.png'
+import logo from './assets/img/logo.png'
 
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -105,13 +106,13 @@ const imgURL = `${imageURL}/storage/`
 <>
 
 <Parallax blur={0} bgImage={f1} bgImageAlt="the cat" strength={300}>
-        <div class="headerSection" id='main'>
+        <div class="navHeaderSection" id='main'>
         <span class="blankText">
             <ul>
-                <li><a href='#productos'>Productos</a></li>
-                <li><a href='#contacto'>Contacto</a></li>
-                <li><a href='#nosotros'>Nosotros</a></li>
-                <li><Link to={loginLink}>{loginText}</Link></li>
+                <li class="menu-item" ><a href='#productos'>Productos</a></li>
+                <li class="menu-item" ><a href='#contacto'>Contacto</a></li>
+                <li class="menu-item" ><a href='#nosotros'>Nosotros</a></li>
+                <li ><Link to={loginLink}>{loginText}</Link></li>
             </ul>
         </span>
     </div>
@@ -119,20 +120,35 @@ const imgURL = `${imageURL}/storage/`
         <Parallax blur={0} bgImage={f2} bgImageAlt="the cat" strength={200}>
             <div class="container">
                 <Parallax blur={0} bgImage={f3} bgImageAlt="the cat" strength={0}>
-                    <div class="container">
+                    <div class="container bg-f3">
                     </div>
                 </Parallax>
+                <div class="logoSmall">
+                    <Parallax 
+                        blur={0} 
+                        strength={0}
+                    >
+                        <div style={{ 
+                            height: '400px',
+                            display: 'flex',
+                            flexDirection: 'column',
+                        }}> 
+                            <img class="logo-image" src={logo} alt="fill murray" />
+                            <div className="container">
+                            </div>
+                        </div>
+                    </Parallax>
+                </div>
             </div>
         </Parallax>
     </div>
-</Parallax>
-<Parallax blur={{min:0,max:10}} bgImage={bg5} bgImageAlt="the cat" strength={200}>
 
-    <div class="headerSection" id='productos'>
+</Parallax>
+    <div class="headerTittle" id='productos'>
       <span class="blankText">Nuestros productos</span>
     </div>
-
-    <div class="container">
+<Parallax blur={{min:0,max:10}} bgImage={bg5} bgImageAlt="the cat" strength={200}>
+<div class="container">
 <Box sx={{margin:"2rem"}}>
     <Carousel
     swipeable={true}
@@ -181,27 +197,33 @@ const imgURL = `${imageURL}/storage/`
 
     </div>
 </Parallax>
-
-<Parallax blur={{min:0,max:15}} bgImage={bg6} bgImageAlt="the cat" strength={300}>
-    <div class="headerSection" id='contacto'>
+<div class="headerTittle" id='contacto'>
     <span class="blankText">¡Contactanos!</span>
-    </div>
+</div>
+<Parallax blur={{min:0,max:15}} bgImage={bg6} bgImageAlt="the cat" strength={300}>
     <div class="container contacto">
-        <Stack direction='row' spacing={5}>
+        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={5}>
             <IconButton><FacebookIcon  sx={{fontSize:100}} /></IconButton>
             <IconButton><InstagramIcon sx={{fontSize:100}}  /></IconButton>
             <IconButton><WhatsAppIcon  sx={{fontSize:100}} /></IconButton>
         </Stack>
         <br />
-        <Typography variant='h2'>Telefono de contacto: +57 000 000 000</Typography>
-        <Typography variant='h2'>Estamos ubicados en la carrera ejemplo con calle test</Typography>
+        <Box sx={{
+            margin:'1rem',
+            padding:'1rem',
+            borderRadius:'30px',
+            backgroundColor: 'rgba(255, 255, 255, 0.5)',
+            color:'#fff'
+        }}>
+            <Typography variant='h2'>Telefono de contacto:<br/> +57 000 000 000</Typography>
+            <Typography variant='h2'>Estamos ubicados en la carrera ejemplo con calle test</Typography>
+        </Box>
     </div>
 </Parallax>
-
+<div class="headerTittle" id='nosotros'>
+    <span class="blankText">Sobre Nosotros</span>
+</div>
 <Parallax blur={{min:0,max:10}} bgImage={bg4} bgImageAlt="the cat" strength={300}>
-    <div class="headerSection" id='nosotros'>
-        <span class="blankText">Sobre Nosotros</span>
-    </div>
     <div class="container">
         <div class="about">
             <Box>

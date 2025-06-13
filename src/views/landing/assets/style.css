@@ -36,10 +36,10 @@ p {
 }
 
 nav{
-    display: flex;
-    flex-direction: row-reverse;
-    margin: 4vh 6vh 0 0;
-    height: 60px;
+  display: none;
+  flex-direction: row-reverse;
+  margin: 4vh 6vh 0 0;
+  height: 60px;
 }
 
 nav a{
@@ -96,8 +96,8 @@ nav a:hover{
 
 
 .blankText{
-    color: var(--color);
-    font-size: 4rem;
+  color: var(--color);
+  font-size: 4rem;
 }
 
 
@@ -140,7 +140,18 @@ h3 {
     text-align: center;
 }
 
-.headerSection{
+.headerTittle{
+  display: flex;
+  width: 100%;
+  justify-self: center;
+  background-color: #fff;
+  height: 80px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.headerSection, .navHeaderSection{
   display: flex;
   border-radius: 50px;
   min-width: 600px;
@@ -167,3 +178,37 @@ h3 {
 justify-content: center;
 }
 
+.logo-image{
+  padding-top: 5%;
+  align-self: center;
+  width: 40rem;
+}
+
+@media only screen and (max-width: 1250px) {
+  .navHeaderSection .menu-item{
+    display: none;
+  }
+
+  .headerSection, .navHeaderSection{
+    min-width: 0px;
+  }
+
+  .blankText {
+    font-size: 3rem;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+ .bg-f3{
+  display: none;
+ }
+}
+
+@media only screen and (max-width: 500px) {
+    .blankText {
+    font-size: 2rem;
+  }
+    .blankText li a {
+    font-size: 2rem;
+  }
+}
