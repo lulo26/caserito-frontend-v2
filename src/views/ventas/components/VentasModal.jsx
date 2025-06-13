@@ -78,7 +78,7 @@ export default function VentasModal() {
           total: item.totalProducto
         });
 
-        await axios.patch(`${baseURL}/producto/${producto.id}`, {
+        await axios.post(`${baseURL}/producto/${producto.id}`, {
         stock: nuevoStock
       });
       }
