@@ -133,7 +133,7 @@ const imgURL = `${imageURL}/storage/`
                             display: 'flex',
                             flexDirection: 'column',
                         }}> 
-                            <img class="logo-image" src={logo} alt="fill murray" />
+                            <img class="logo-image" src={f3} alt="caserito :3" />
                             <div className="container">
                             </div>
                         </div>
