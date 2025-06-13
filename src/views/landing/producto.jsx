@@ -35,6 +35,7 @@ export default function Producto() {
             .then((response) => {
                 console.log(response)
                 setData(response.data.data);
+                setProductoTitle(data.nombre)
                 setLoading(false);
             })
             .catch((err) => {
@@ -49,10 +50,10 @@ export default function Producto() {
         window.location.replace(frontUrl)
     }
 
-    const setReview = (id, payload) => {
+    const setReview = (payload) => {
         return axios({
             method: 'post',
-            url: `${baseURL}/review`,
+            url: `${baseURL}/contact`,
             data: payload,
             responseType: 'json'
         })
@@ -63,13 +64,12 @@ export default function Producto() {
         let fields = e.target
 
         const payload = {
-            producto_id: params.id,
-            nombre: fields.nombre.value,
-            comentario:fields.comentario.value,
-            puntuacion: ratingValue
+            name: fields.nombre.value,
+            email: 'example@gmail.com',
+            message: `Producto: ${productoTitle}, puntuación: ${ratingValue}, comentario: ${fields.comentario.value}` 
         }
 
-        const response = setReview(params.id, payload)
+        const response = setReview(payload)
         response
         .then((res) => {
             console.log(res.data)
