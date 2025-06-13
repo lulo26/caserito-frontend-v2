@@ -84,23 +84,25 @@ useEffect(() => {
       const items = itemsRes.data.data;
       const productos = productosRes.data.data;
 
-      const enrichedVentas = ventas.map(venta => {
-        const relatedItems = items
-          .filter(item => item.venta_id === venta.id)
-          .map(item => {
-            const producto = productos.find(p => p.id === item.producto_id);
-            return {
-              ...item,
-              nombre: producto ? producto.nombre : 'Producto no encontrado'
-            };
-          });
+      let enrichedVentas = null;
+      ventas ? (
+        enrichedVentas = ventas.map(venta => {
+          const relatedItems = items
+            .filter(item => item.venta_id === venta.id)
+            .map(item => {
+              const producto = productos.find(p => p.id === item.producto_id);
+              return {
+                ...item,
+                nombre: producto ? producto.nombre : 'Producto no encontrado'
+              };
+            });
 
-        return {
-          ...venta,
-          productos: relatedItems
-        };
-      });
-
+          return {
+            ...venta,
+            productos: relatedItems
+          };
+        })
+      ) : ''
       setTableData(enrichedVentas);
       setLoading(false);
     })
