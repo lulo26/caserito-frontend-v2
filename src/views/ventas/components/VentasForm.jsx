@@ -47,7 +47,7 @@ export default function VentasForm({ inputFields, setInputFields, total, setTota
   return (
     <>
       {inputFields.map((input, index) => (
-        <Stack key={index} direction="row" spacing={1} mb={1} mt={2}>
+        <Stack key={index} direction={{ xs: 'column', sm: 'row' }} spacing={1} mb={1} mt={2}>
           <Select
             name="producto_id"
             value={input.producto_id}
@@ -65,6 +65,7 @@ export default function VentasForm({ inputFields, setInputFields, total, setTota
             ))}
           </Select>
           <TextField
+          sx={{minWidth:100}}
             name="cantidad"
             label="Cantidad"
             type='number'
@@ -76,6 +77,7 @@ export default function VentasForm({ inputFields, setInputFields, total, setTota
             }} 
           />
           <TextField
+          sx={{minWidth:100}}
             name="totalProducto"
             label="Total"
             type="text"
