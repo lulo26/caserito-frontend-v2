@@ -56,7 +56,6 @@ export default function TotalGanancias({ isLoading }) {
       }) 
     }
       catch (error) {
-        console.log(`error ${error}`);
       }
       
   },[])

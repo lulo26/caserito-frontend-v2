@@ -47,11 +47,10 @@ export default function LogoutDialogue() {
     localStorage.clear()
     axios.delete(`${baseURL}/logout/${idUser}`)
     .then((response) => {
-        console.log(response)
+
     })
     .catch((error) => console.log(error.message))
     handleClose()
-    console.log(ACCESS_TOKEN_NAME);
     
     navigate('/pages/login')
             

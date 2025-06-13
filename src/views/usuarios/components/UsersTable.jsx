@@ -59,8 +59,6 @@ export default function UsersTable() {
           setLoading(false);
         });
     }, []);
-    console.log(tableData);
-    
       
 
       if (loading) return (<><Loader/> <Loading/></>);

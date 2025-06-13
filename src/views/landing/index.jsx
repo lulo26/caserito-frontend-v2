@@ -96,7 +96,6 @@ const imgURL = `${imageURL}/storage/`
 
     const isEmpty = (obj)=>{
         let test = obj === undefined
-        console.log(test);
         return test;
     }
     if (loading) return (<> <CircularProgress color="primary" /></>);

@@ -56,7 +56,6 @@ export default function TotalProductos({ isLoading }) {
       }) 
     }
       catch (error) {
-        console.log(`error ${error}`);
       }
       
   },[])

@@ -32,7 +32,6 @@ export default function AppGet() {
     }, []);
     const isEmpty = (obj)=>{
         let test = obj === undefined
-        console.log(test);
         return test;
     }
     if (loading) return (<><Loader/> <Loading/></>);

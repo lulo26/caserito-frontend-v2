@@ -27,7 +27,6 @@ import { useNavigate } from 'react-router-dom';
 export default function MainLayout() {
 
   const localStorageToken = localStorage.getItem(ACCESS_TOKEN_NAME) 
-    console.log(localStorageToken);
     const navigate = useNavigate();
     if (!localStorageToken){
       navigate('/pages/login')}

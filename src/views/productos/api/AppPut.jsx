@@ -61,31 +61,39 @@ export default function AppPost({ IDproducto }) {
   };
 
   const handleFileChange = (e) => {
-    setFormData((prev) => ({ ...prev, imagen: e.target.files[0] }));
+    setFormData((prev) => ({ ...prev, imagen: e.target.files[0] || null }))
+    
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const payload = new FormData();
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const payload = new FormData();
 
-    for (let key in formData) {
-      if (formData[key] !== null) {
-        payload.append(key, formData[key]);
-      }
-    }
+  // Append other fields
+  payload.append('nombre', formData.nombre);
+  payload.append('descripcion', formData.descripcion);
+  payload.append('stock', formData.stock);
+  payload.append('precio', formData.precio);
 
-    try {
-      const response = await axios.post(
-        `${baseURL}/producto/${IDproducto}?_method=PUT`, // for Laravel PUT via POST
-        payload,
-        { headers: { 'Content-Type': 'multipart/form-data' } }
-      );
-      setResponseMessage(<Alert severity="success">Producto editado exitosamente</Alert>);
-    } catch (error) {
-      setResponseMessage(<Alert severity="error">Error al editar el producto</Alert>);
-    }
-    navigate(0)
-  };
+  // Only append image if a file is selected
+  if (formData.imagen instanceof File) {
+    payload.append('imagen', formData.imagen);
+  }
+
+  try {
+    const response = await axios.post(
+      `${baseURL}/producto/${IDproducto}?_method=PUT`,
+      payload,
+      { headers: { 'Content-Type': 'multipart/form-data' } }
+    );
+    setResponseMessage(<Alert severity="success">Producto editado exitosamente</Alert>);
+    navigate(0);
+  } catch (error) {
+    setResponseMessage(<Alert severity="error">Error al editar el producto</Alert>);
+  }
+};
+
+
 
   const getProducto = async () => {
     try {
@@ -96,7 +104,7 @@ export default function AppPost({ IDproducto }) {
         descripcion: producto.descripcion || '',
         stock: producto.stock || '',
         precio: producto.precio || '',
-        imagen: null, // Don't prefill image
+        imagen: null,
       });
     } catch (error) {
       console.error("Error fetching producto:", error);

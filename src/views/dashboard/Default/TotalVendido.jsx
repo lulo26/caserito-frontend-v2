@@ -56,7 +56,6 @@ export default function TotalVendido({ isLoading }) {
       }) 
     }
       catch (error) {
-        console.log(`error ${error}`);
       }
       
   },[])

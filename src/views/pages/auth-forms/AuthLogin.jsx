@@ -67,7 +67,6 @@ export default function AuthLogin() {
             'successMesage' : 'sesión iniciada correctamente'
           }))
           localStorage.setItem(ACCESS_TOKEN_NAME, response.data.data)
-          console.log(response.data.data);
           navigate('/')
           
         }
@@ -79,7 +78,6 @@ export default function AuthLogin() {
                 }
             })
         .catch(function (error) {
-                console.log(error);
                 setResponseMessage(<Alert severity="error">Error al iniciar sesión</Alert>);
             
       })

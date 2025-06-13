@@ -55,8 +55,6 @@ export default function VentasModal() {
         total,
         recibido
       });
-
-      console.log(ventaRes.data.data);
       
 
       const venta_id = ventaRes.data.data.id; // Make sure your API returns this
@@ -99,7 +97,6 @@ export default function VentasModal() {
 
   const isEmpty = (obj)=>{
         let test = obj === undefined
-        console.log(test);
         return test;
     }
 

@@ -3,7 +3,6 @@ import { ACCESS_TOKEN_NAME } from '../store/constant';
 
 const PrivateRoute = ()=> {
   const localStorageToken = localStorage.getItem(ACCESS_TOKEN_NAME) 
-  console.log(localStorageToken);
   const navigate = useNavigate();
   if (!localStorageToken){
     navigate('/pages/login')

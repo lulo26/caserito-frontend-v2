@@ -71,7 +71,6 @@ export default function Producto() {
         const response = setReview(payload)
         response
         .then((res) => {
-            console.log(res.data)
             setResponseMessage(<Alert severity="success">Reseña agregada</Alert>),
             navigate(-1)
         })
