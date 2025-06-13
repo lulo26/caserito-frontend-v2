@@ -1,7 +1,6 @@
 import './assets/style.css'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-
 import Button from '@mui/material/Button';
 import { Link, useNavigate } from 'react-router';
 
@@ -30,7 +29,7 @@ import IconButton from '@mui/material/IconButton';
 import EmailIcon from '@mui/icons-material/Email';
 
 export default function Landing() {
-
+    
     const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -82,7 +81,7 @@ const imgURL = `${imageURL}/storage/`
 
     const getSession = () => {
         localStorage.getItem(ACCESS_TOKEN_NAME) ? (
-            setLoginLink('/admin'), 
+            setLoginLink('/admin/dashboard'), 
             setLoginText('Dashboard') 
         )
         : (
@@ -112,7 +111,8 @@ const imgURL = `${imageURL}/storage/`
                 <li class="menu-item" ><a href='#productos'>Productos</a></li>
                 <li class="menu-item" ><a href='#contacto'>Contacto</a></li>
                 <li class="menu-item" ><a href='#nosotros'>Nosotros</a></li>
-                <li ><Link to={loginLink}>{loginText}</Link></li>
+                <li ><Link to={loginLink} onClick={() => setTimeout(() => window.location.reload(), 0)}>
+                    {loginText}</Link></li>
             </ul>
         </span>
     </div>
