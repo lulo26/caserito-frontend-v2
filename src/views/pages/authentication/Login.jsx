@@ -52,13 +52,6 @@ export default function Login() {
                   <Grid size={12}>
                     <Divider />
                   </Grid>
-                  <Grid size={12}>
-                    <Grid container direction="column" sx={{ alignItems: 'center' }} size={12}>
-                      <Typography component={Link} to="/pages/register" variant="subtitle1" sx={{ textDecoration: 'none', color:'primary.main'}}>
-                        No tiene una cuenta?
-                      </Typography>
-                    </Grid>
-                  </Grid>
                 </Grid>
               </AuthCardWrapper>
             </Grid>
