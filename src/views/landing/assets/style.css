@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: auto;
+}
+
 :root{
 --color: #a81c1c; 
 }
@@ -5,6 +9,23 @@
 body{
     background-color: #ffe5f3;
 }
+
+.nav-menu {
+  gap: 0.5rem;
+}
+
+@media (min-width: 600px) {
+  .nav-menu {
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .nav-menu {
+    gap: 2rem;
+  }
+}
+
 
 .container {
   font-size: 28px;
@@ -152,10 +173,17 @@ h3 {
 }
 
 .headerSection, .navHeaderSection{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 1rem 0;
+
+
   display: flex;
   border-radius: 50px;
   min-width: 600px;
-  width: 90%;
   justify-self: center;
   background-color: #fff;
   height: 80px;
@@ -195,6 +223,9 @@ justify-content: center;
   }
 
   .blankText {
+    width: 100%;
+    display: flex;
+    justify-content: center;
     font-size: 3rem;
   }
 }

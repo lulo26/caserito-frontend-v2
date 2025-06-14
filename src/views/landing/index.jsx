@@ -10,6 +10,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+import { useRef } from 'react';
+import Lenis from '@studio-freight/lenis';
+
 import { Grid2, Card, Box, CardActions, CardContent, CardMedia, Stack } from "@mui/material";
 import Typography from '@mui/material/Typography';
 
@@ -29,6 +32,7 @@ import IconButton from '@mui/material/IconButton';
 import EmailIcon from '@mui/icons-material/Email';
 
 export default function Landing() {
+    const lenisRef = useRef(null);
     
     const responsive = {
   superLargeDesktop: {
@@ -61,6 +65,39 @@ const imgURL = `${imageURL}/storage/`
     const [loginLink, setLoginLink] = useState('/pages/login');
 
     const navigate = useNavigate()
+
+   
+
+useEffect(() => {
+  lenisRef.current = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smooth: true,
+    direction: 'vertical',
+    gestureDirection: 'vertical',
+    smoothTouch: false,
+    touchMultiplier: 2,
+  });
+
+  function raf(time) {
+    lenisRef.current?.raf(time);
+    requestAnimationFrame(raf);
+  }
+
+  requestAnimationFrame(raf);
+
+  return () => {
+    lenisRef.current?.destroy();
+  };
+}, []);
+
+const handleScrollTo = (target) => {
+  if (lenisRef.current) {
+    lenisRef.current.scrollTo(target);
+  }
+};
+
+
 
     useEffect(() => {
             axios({
@@ -101,19 +138,38 @@ const imgURL = `${imageURL}/storage/`
     if (loading) return (<> <CircularProgress color="primary" /></>);
     if (error) return <div>Error: {error}</div>;
 
+    const handleDashboard=()=>{
+        navigate(loginLink)
+        setTimeout(() => window.location.reload(), 0)
+    }
+
+const navButtonStyle = {
+  fontSize: { xs: '0.9rem', sm: '1rem', md: '1.25rem', lg: '1.5rem' },
+  padding: { xs: '0.25rem 0.75rem', sm: '0.5rem 1rem', md: '0.75rem 1.5rem' },
+  textTransform: 'none',
+  whiteSpace: 'nowrap',
+};
+
   return (
 <>
-
+<div data-scroll-container>
 <Parallax blur={0} bgImage={f1} bgImageAlt="the cat" strength={300}>
-        <div class="navHeaderSection" id='main'>
+    <div class="navHeaderSection" id='main'>
         <span class="blankText">
-            <ul>
-                <li class="menu-item" ><a href='#productos'>Productos</a></li>
-                <li class="menu-item" ><a href='#contacto'>Contacto</a></li>
-                <li class="menu-item" ><a href='#nosotros'>Nosotros</a></li>
-                <li ><Link to={loginLink} onClick={() => setTimeout(() => window.location.reload(), 0)}>
-                    {loginText}</Link></li>
-            </ul>
+<Stack
+  direction="row"
+  spacing={{ xs: 1, sm: 2, md: 3 }}
+  useFlexGap
+  flexWrap="wrap"
+  justifyContent="center"
+  sx={{ width: '100%', paddingY: 2 }}
+>
+  <Button color="secondary" sx={navButtonStyle} onClick={() => handleScrollTo('#productos')}>Productos</Button>
+  <Button color="secondary" sx={navButtonStyle} onClick={() => handleScrollTo('#contacto')}>Contacto</Button>
+  <Button color="secondary" sx={navButtonStyle} onClick={() => handleScrollTo('#nosotros')}>Nosotros</Button>
+  <Button color="secondary" sx={navButtonStyle} onClick={() => handleDashboard()}>{loginText}</Button>
+</Stack>
+
         </span>
     </div>
     <div class="container">
@@ -145,9 +201,17 @@ const imgURL = `${imageURL}/storage/`
 
 </Parallax>
     <div class="headerTittle" id='productos'>
-      <span class="blankText">Nuestros productos</span>
+      <span class="blankText"><Typography color='secondary'   sx={{
+    fontSize: {
+      xs: '1.2rem', 
+      sm: '1.5rem', 
+      md: '2rem',   
+      lg: '2.5rem', 
+      xl: '3rem',  
+    },
+  }}>Nuestros productos</Typography></span>
     </div>
-<Parallax blur={{min:0,max:10}} bgImage={bg5} bgImageAlt="the cat" strength={200}>
+<Parallax blur={{min:0,max:5}} bgImage={bg5} bgImageAlt="the cat" strength={200}>
 <div class="container">
 <Box sx={{margin:"2rem"}}>
     <Carousel
@@ -198,9 +262,17 @@ const imgURL = `${imageURL}/storage/`
     </div>
 </Parallax>
 <div class="headerTittle" id='contacto'>
-    <span class="blankText">¡Contactanos!</span>
+    <span class="blankText"><Typography color='secondary'   sx={{
+    fontSize: {
+      xs: '1.2rem', 
+      sm: '1.5rem', 
+      md: '2rem',   
+      lg: '2.5rem', 
+      xl: '3rem',  
+    },
+  }}>¡Contactanos!</Typography></span>
 </div>
-<Parallax blur={{min:0,max:15}} bgImage={bg6} bgImageAlt="the cat" strength={300}>
+<Parallax blur={{min:0,max:5}} bgImage={bg6} bgImageAlt="the cat" strength={300}>
     <div class="container contacto">
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={5}>
             <IconButton href="https://www.facebook.com/share/16WhPt96Yn/" ><FacebookIcon  sx={{fontSize:100}} /></IconButton>
@@ -222,27 +294,55 @@ const imgURL = `${imageURL}/storage/`
     </div>
 </Parallax>
 <div class="headerTittle" id='nosotros'>
-    <span class="blankText">Sobre Nosotros</span>
+    <span class="blankText"><Typography color='secondary'   sx={{
+    fontSize: {
+      xs: '1.2rem', 
+      sm: '1.5rem', 
+      md: '2rem',   
+      lg: '2.5rem', 
+      xl: '3rem',  
+    },
+  }}>Sobre Nosotros</Typography></span>
 </div>
-<Parallax blur={{min:0,max:10}} bgImage={bg4} bgImageAlt="the cat" strength={300}>
+<Parallax blur={{min:0,max:5}} bgImage={bg4} bgImageAlt="the cat" strength={300}>
     <div class="container">
         <div class="about">
-            <Box>
-                <Typography variant="h2">
+            <Box   sx={{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    textAlign: 'center',     
+  }}>
+                <Typography color='black' sx={{
+                    fontSize: {
+                    xs: '1rem', 
+                    sm: '1.2rem', 
+                    md: '1.5rem',   
+                    lg: '2rem', 
+                    xl: '2.5rem',  
+                    textAlign: 'center'
+                    },
+                 }}>
                 MISIÓN: La repostería Caserito Postres tiene como objetivo satisfacer las necesidades de las personas que quieran darse un gustico, además ofrecerles una dulce experiencia de sabores con nuestros increíbles postres caseritos a base de leche.
                 </Typography>
                 <br /><br />
-                <Typography variant="h2">
+                <Typography color='black' sx={{
+                    fontSize: {
+                    xs: '1rem', 
+                    sm: '1.2rem', 
+                    md: '1.5rem',   
+                    lg: '2rem', 
+                    xl: '2.5rem',  
+                    textAlign: 'center'
+                    },
+                 }}>
                 VISIÓN: Nuestro objetivo a largo plazo (2029) es innovar nuestro portafolio de productos ofreciendo postres personalizados y de temporada, llegar a ser una empresa sólida financieramente, ser reconocidos a nivel municipal, incrementar nuestras ventas y llegar a más clientes. 
                 </Typography>
             </Box>
         </div>
     </div>
 </Parallax>
-
-
-      
-
+</div>
 </>
 );
 }
