@@ -5,8 +5,6 @@ import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
 
 import PrivateRoute from '../utils/PrivateRoute';
-import { ACCESS_TOKEN_NAME } from '../store/constant';
-import MinimalLayout from 'layout/MinimalLayout';
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
 
@@ -28,6 +26,14 @@ const MainRoutes = {
   path: '/',
   element: '',
   children: [
+    {
+      path:'/',
+      element: <Landing />
+    },
+    {
+      path:'/producto/:id',
+      element: <Producto />
+    },
     {
       path: '/admin',
       element: <MainLayout><PrivateRoute/></MainLayout>,
