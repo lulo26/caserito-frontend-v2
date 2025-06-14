@@ -5,7 +5,6 @@ import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
 
 import PrivateRoute from '../utils/PrivateRoute';
-const LandingTest = Loadable(lazy(() => import('views/test')));
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
 
@@ -27,10 +26,6 @@ const MainRoutes = {
   path: '/',
   element: '',
   children: [
-    {
-      path:'/test',
-      element: <LandingTest/>
-    },
     {
       path:'/',
       element: <Landing />
